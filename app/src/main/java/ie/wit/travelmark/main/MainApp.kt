@@ -12,6 +12,9 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        i("Travelmark started")
+        i("Placemark started")
+        travelmarks.add(TravelmarkModel("One", "About one..."))
+        travelmarks.add(TravelmarkModel("Two", "About two..."))
+        travelmarks.add(TravelmarkModel("Three", "About three..."))
     }
 }
