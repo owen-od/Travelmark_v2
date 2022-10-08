@@ -32,6 +32,8 @@ class TravelmarkActivity : AppCompatActivity() {
                 i("add Button Pressed: ${travelmark.title}")
                 for (i in app.travelmarks.indices)
                 { i("Placemark[$i]:${this.app.travelmarks[i]}") }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 Snackbar
