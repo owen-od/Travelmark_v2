@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Travelmark</string>
+    <string name="button_addTravelmark">Add Travelmark</string>
+    <string name="hint_travelmarkTitle">Travelmark Title</string>
+    <string name="hint_travelmarkDescription">Description</string>
+</resources>
