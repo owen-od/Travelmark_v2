@@ -62,7 +62,7 @@ class TravelmarkActivity : AppCompatActivity() {
             travelmark.description = binding.travelmarkDescription.text.toString()
             if (travelmark.title.isEmpty()) {
                 Snackbar
-                    .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
+                    .make(it, R.string.warning_enterTitle, Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 if (edit) {
