@@ -6,7 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ie.wit.travelmark.databinding.CardTravelmarkBinding
 import ie.wit.travelmark.models.TravelmarkModel
 
-class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkModel>) :
+interface TravelmarkListener {
+    fun onTravelmarkClick(travelmark: TravelmarkModel)
+}
+
+class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkModel>,
+                                    private val listener: TravelmarkListener) :
             RecyclerView.Adapter<TravelmarkAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -18,7 +23,7 @@ class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkMode
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val travelmark = travelmarks[holder.adapterPosition]
-        holder.bind(travelmark)
+        holder.bind(travelmark, listener)
     }
 
     override fun getItemCount(): Int = travelmarks.size
@@ -26,10 +31,11 @@ class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkMode
     class MainHolder(private val binding : CardTravelmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(travelmark: TravelmarkModel) {
+        fun bind(travelmark: TravelmarkModel, listener: TravelmarkListener) {
             binding.travelmarkLocation.text = travelmark.location
             binding.travelmarkTitle.text = travelmark.title
             binding.travelmarkDescription.text = travelmark.description
+            binding.root.setOnClickListener { listener.onTravelmarkClick(travelmark) }
         }
     }
 }

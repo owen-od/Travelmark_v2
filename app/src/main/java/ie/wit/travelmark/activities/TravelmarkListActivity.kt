@@ -8,10 +8,12 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.travelmark.R
 import ie.wit.travelmark.adapters.TravelmarkAdapter
+import ie.wit.travelmark.adapters.TravelmarkListener
 import ie.wit.travelmark.databinding.ActivityTravelmarkListBinding
 import ie.wit.travelmark.main.MainApp
+import ie.wit.travelmark.models.TravelmarkModel
 
-class TravelmarkListActivity : AppCompatActivity() {
+class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityTravelmarkListBinding
@@ -28,7 +30,7 @@ class TravelmarkListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TravelmarkAdapter(app.travelmarks.findAll())
+        binding.recyclerView.adapter = TravelmarkAdapter(app.travelmarks.findAll(), this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -44,5 +46,16 @@ class TravelmarkListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onTravelmarkClick(travelmark: TravelmarkModel) {
+        val launcherIntent = Intent(this, TravelmarkActivity::class.java)
+        launcherIntent.putExtra("travelmark_edit", travelmark)
+        startActivityForResult(launcherIntent,0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

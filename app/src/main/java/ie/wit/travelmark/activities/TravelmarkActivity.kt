@@ -20,6 +20,7 @@ class TravelmarkActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
 
         binding = ActivityTravelmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -30,20 +31,32 @@ class TravelmarkActivity : AppCompatActivity() {
         app = application as MainApp
         i("Travelmark Activity started..")
 
+        if (intent.hasExtra("travelmark_edit")) {
+            edit = true
+            travelmark = intent.extras?.getParcelable("travelmark_edit")!!
+            binding.travelmarkTitle.setText(travelmark.title)
+            binding.travelmarkDescription.setText(travelmark.description)
+            binding.travelmarkLocation.setText(travelmark.location)
+            binding.btnAdd.setText(R.string.menu_saveTravelmark)
+        }
+
         binding.btnAdd.setOnClickListener() {
             travelmark.location = binding.travelmarkLocation.text.toString()
             travelmark.title = binding.travelmarkTitle.text.toString()
             travelmark.description = binding.travelmarkDescription.text.toString()
-            if (travelmark.title.isNotEmpty()) {
-                app.travelmarks.create(travelmark.copy())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
+            if (travelmark.title.isEmpty()) {
                 Snackbar
-                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+                    .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.travelmarks.update(travelmark.copy())
+                } else {
+                    app.travelmarks.create(travelmark.copy())
+                }
             }
+            setResult(RESULT_OK)
+            finish()
         }
     }
 

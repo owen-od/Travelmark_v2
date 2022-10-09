@@ -14,8 +14,8 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Placemark started")
-        travelmarks.create(TravelmarkModel("Dublin", "Spire", "Monument on O'Connell Street"))
-        travelmarks.create(TravelmarkModel("Dublin", "GPO", "Dublin post office"))
-        travelmarks.create(TravelmarkModel("Paris", "Eiffel Tower", "Famous paris tower"))
+        // travelmarks.create(TravelmarkModel("Dublin", "Spire", "Monument on O'Connell Street"))
+        // travelmarks.create(TravelmarkModel("Dublin", "GPO", "Dublin post office"))
+        // travelmarks.create(TravelmarkModel("Paris", "Eiffel Tower", "Famous paris tower"))
     }
 }
