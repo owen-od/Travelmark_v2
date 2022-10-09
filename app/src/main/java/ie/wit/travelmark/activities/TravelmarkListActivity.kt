@@ -28,7 +28,7 @@ class TravelmarkListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TravelmarkAdapter(app.travelmarks)
+        binding.recyclerView.adapter = TravelmarkAdapter(app.travelmarks.findAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

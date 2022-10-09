@@ -35,10 +35,7 @@ class TravelmarkActivity : AppCompatActivity() {
             travelmark.title = binding.travelmarkTitle.text.toString()
             travelmark.description = binding.travelmarkDescription.text.toString()
             if (travelmark.title.isNotEmpty()) {
-                app.travelmarks.add(travelmark.copy())
-                i("add Button Pressed: ${travelmark.title}")
-                for (i in app.travelmarks.indices)
-                { i("Placemark[$i]:${this.app.travelmarks[i]}") }
+                app.travelmarks.create(travelmark.copy())
                 setResult(RESULT_OK)
                 finish()
             }
