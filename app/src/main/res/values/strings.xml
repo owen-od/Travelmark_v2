@@ -4,4 +4,5 @@
     <string name="hint_travelmarkTitle">Travelmark Title</string>
     <string name="hint_travelmarkDescription">Description</string>
     <string name="menu_addTravelmark">Add</string>
+    <string name="menu_cancelTravelmark">Cancel</string>
 </resources>
