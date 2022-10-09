@@ -27,6 +27,7 @@ class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkMode
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(travelmark: TravelmarkModel) {
+            binding.travelmarkLocation.text = travelmark.location
             binding.travelmarkTitle.text = travelmark.title
             binding.travelmarkDescription.text = travelmark.description
         }

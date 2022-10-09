@@ -31,6 +31,7 @@ class TravelmarkActivity : AppCompatActivity() {
         i("Travelmark Activity started..")
 
         binding.btnAdd.setOnClickListener() {
+            travelmark.location = binding.travelmarkLocation.text.toString()
             travelmark.title = binding.travelmarkTitle.text.toString()
             travelmark.description = binding.travelmarkDescription.text.toString()
             if (travelmark.title.isNotEmpty()) {

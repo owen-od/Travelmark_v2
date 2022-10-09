@@ -13,8 +13,8 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Placemark started")
-        travelmarks.add(TravelmarkModel("One", "About one..."))
-        travelmarks.add(TravelmarkModel("Two", "About two..."))
-        travelmarks.add(TravelmarkModel("Three", "About three..."))
+        travelmarks.add(TravelmarkModel("Dublin", "Spire", "Monument on O'Connell Street"))
+        travelmarks.add(TravelmarkModel("Dublin", "GPO", "Dublin post office"))
+        travelmarks.add(TravelmarkModel("Paris", "Eiffel Tower", "Famous paris tower"))
     }
 }

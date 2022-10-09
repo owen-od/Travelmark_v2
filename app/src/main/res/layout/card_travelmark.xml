@@ -27,5 +27,12 @@
             android:layout_below="@id/travelmarkTitle"
             tools:text="A Description" />
 
+        <TextView
+            android:id="@+id/travelmarkLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/travelmarkDescription"
+            tools:text="A Location" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
