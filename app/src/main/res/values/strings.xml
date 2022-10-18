@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Travelmark</string>
     <string name="button_addTravelmark">Add Travelmark</string>
-    <string name="hint_travelmarkTitle">Travelmark Title</string>
+    <string name="hint_travelmarkTitle">Title</string>
     <string name="hint_travelmarkDescription">Description</string>
     <string name="hint_travelmarkLocation">Location</string>
     <string name="menu_addTravelmark">Add</string>
@@ -12,6 +12,7 @@
     <string name="select_travelmark_image">Select travelmark image</string>
     <string name="warning_enterTitle">Please enter a title</string>
     <string name="travelmark_category_header">Choose your category</string>
+    <string name="add_travelmark_header">Make your mark</string>
     <string name="option_see">Sight to see</string>
     <string name="option_do">Thing to do</string>
     <string name="option_eat">Food to eat</string>
