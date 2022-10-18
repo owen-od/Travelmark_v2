@@ -37,6 +37,7 @@ class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkMode
             binding.travelmarkTitle.text = travelmark.title
             binding.travelmarkDescription.text = travelmark.description
             Picasso.get().load(travelmark.image).resize(250,250).into(binding.imageIcon)
+            binding.travelmarkCategory.text = travelmark.category
             binding.root.setOnClickListener { listener.onTravelmarkClick(travelmark) }
         }
     }

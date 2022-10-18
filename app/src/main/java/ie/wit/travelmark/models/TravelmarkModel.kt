@@ -10,4 +10,5 @@ data class TravelmarkModel(
     var image: Uri = Uri.EMPTY,
     var location: String = "",
     var title: String = "",
+    var category: String = "N/A",
     var description: String = "") : Parcelable

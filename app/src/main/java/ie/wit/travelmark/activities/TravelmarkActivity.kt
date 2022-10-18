@@ -60,6 +60,14 @@ class TravelmarkActivity : AppCompatActivity() {
             travelmark.location = binding.travelmarkLocation.text.toString()
             travelmark.title = binding.travelmarkTitle.text.toString()
             travelmark.description = binding.travelmarkDescription.text.toString()
+
+            travelmark.category = when (binding.travelmarkCategory.checkedRadioButtonId) {
+                R.id.option_see -> "Sight to see"
+                R.id.option_do -> "Thing to do"
+                R.id.option_eat -> "Food to eat"
+                else -> "N/A"
+            }
+
             if (travelmark.title.isEmpty()) {
                 Snackbar
                     .make(it, R.string.warning_enterTitle, Snackbar.LENGTH_LONG)
