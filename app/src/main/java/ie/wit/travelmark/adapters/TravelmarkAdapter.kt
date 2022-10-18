@@ -3,6 +3,7 @@ package ie.wit.travelmark.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.travelmark.databinding.CardTravelmarkBinding
 import ie.wit.travelmark.models.TravelmarkModel
 
@@ -35,6 +36,7 @@ class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkMode
             binding.travelmarkLocation.text = travelmark.location
             binding.travelmarkTitle.text = travelmark.title
             binding.travelmarkDescription.text = travelmark.description
+            Picasso.get().load(travelmark.image).resize(250,250).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onTravelmarkClick(travelmark) }
         }
     }
