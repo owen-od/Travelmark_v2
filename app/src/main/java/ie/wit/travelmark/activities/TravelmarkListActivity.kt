@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.travelmark.R
 import ie.wit.travelmark.adapters.TravelmarkAdapter
@@ -17,11 +19,14 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityTravelmarkListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTravelmarkListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        registerRefreshCallback()
 
         app = application as MainApp
 
@@ -42,7 +47,7 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, TravelmarkActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -51,11 +56,12 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
     override fun onTravelmarkClick(travelmark: TravelmarkModel) {
         val launcherIntent = Intent(this, TravelmarkActivity::class.java)
         launcherIntent.putExtra("travelmark_edit", travelmark)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }
