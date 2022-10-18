@@ -11,4 +11,8 @@
     <string name="button_changeImage">Change Image</string>
     <string name="select_travelmark_image">Select travelmark image</string>
     <string name="warning_enterTitle">Please enter a title</string>
+    <string name="travelmark_category_header">Choose your category</string>
+    <string name="option_see">Sight to see</string>
+    <string name="option_do">Thing to do</string>
+    <string name="option_eat">Food to eat</string>
 </resources>

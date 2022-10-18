@@ -86,17 +86,62 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"
-                    android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/button_addImage"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/travelmarkImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"/>
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/travelmark_category_header"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioGroup
+                    android:id="@+id/travelmark_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/option_see"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/option_see" />
+
+                    <RadioButton
+                        android:id="@+id/option_do"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:text="@string/option_do" />
+
+                    <RadioButton
+                        android:id="@+id/option_eat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:text="@string/option_eat" />
+                </RadioGroup>
 
                 <Button
                     android:id="@+id/btnAdd"
