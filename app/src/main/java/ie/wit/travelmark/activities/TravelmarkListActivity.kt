@@ -35,7 +35,7 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TravelmarkAdapter(app.travelmarks.findAll(), this)
+        loadTravelmarks()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,6 +62,15 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+            { loadTravelmarks() }
+    }
+
+    private fun loadTravelmarks() {
+        showTravelmarks(app.travelmarks.findAll())
+    }
+
+    fun showTravelmarks (travelmarks: List<TravelmarkModel>) {
+        binding.recyclerView.adapter = TravelmarkAdapter(travelmarks, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }

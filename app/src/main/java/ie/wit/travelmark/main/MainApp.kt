@@ -1,21 +1,22 @@
 package ie.wit.travelmark.main
 
 import android.app.Application
+import ie.wit.travelmark.models.TravelmarkJSONStore
 import ie.wit.travelmark.models.TravelmarkMemStore
 import ie.wit.travelmark.models.TravelmarkModel
+import ie.wit.travelmark.models.TravelmarkStore
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val travelmarks = TravelmarkMemStore()
+    lateinit var travelmarks: TravelmarkStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        i("Placemark started")
-        // travelmarks.create(TravelmarkModel("Dublin", "Spire", "Monument on O'Connell Street"))
-        // travelmarks.create(TravelmarkModel("Dublin", "GPO", "Dublin post office"))
-        // travelmarks.create(TravelmarkModel("Paris", "Eiffel Tower", "Famous paris tower"))
+        i("Travelmark started")
+        travelmarks = TravelmarkJSONStore(applicationContext)
+        //travelmarks = TravelmarkMemStore()
     }
 }
