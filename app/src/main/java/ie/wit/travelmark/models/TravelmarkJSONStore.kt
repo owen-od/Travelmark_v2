@@ -42,7 +42,17 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
 
 
     override fun update(travelmark: TravelmarkModel) {
-        // todo
+        var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmark.id }
+        if (foundTravelmark != null) {
+            foundTravelmark.title = travelmark.title
+            foundTravelmark.description = travelmark.description
+            foundTravelmark.location = travelmark.location
+            foundTravelmark.image = travelmark.image
+            foundTravelmark.category = travelmark.category
+            foundTravelmark.lat = travelmark.lat
+            foundTravelmark.lng = travelmark.lng
+            foundTravelmark.zoom = travelmark.zoom
+        }
     }
 
     private fun serialize() {
