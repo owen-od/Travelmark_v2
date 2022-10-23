@@ -12,3 +12,8 @@ data class TravelmarkModel(
     var title: String = "",
     var category: String = "N/A",
     var description: String = "") : Parcelable
+
+@Parcelize
+data class Location(var lat: Double = 0.0,
+                    var lng: Double = 0.0,
+                    var zoom: Float = 0f) : Parcelable

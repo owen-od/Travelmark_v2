@@ -14,6 +14,7 @@ import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityTravelmarkBinding
 import ie.wit.travelmark.helpers.showImagePicker
 import ie.wit.travelmark.main.MainApp
+import ie.wit.travelmark.models.Location
 import ie.wit.travelmark.models.TravelmarkModel
 import timber.log.Timber
 import timber.log.Timber.i
@@ -22,15 +23,19 @@ class TravelmarkActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTravelmarkBinding
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     var travelmark = TravelmarkModel()
     lateinit var app : MainApp
+
+    var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var edit = false
 
         registerImagePickerCallback()
+        registerMapCallback()
 
         binding = ActivityTravelmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -87,6 +92,12 @@ class TravelmarkActivity : AppCompatActivity() {
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
+
+        binding.setTravelmarkLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,6 +124,23 @@ class TravelmarkActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(travelmark.image)
                                 .into(binding.travelmarkImage)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $location")
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
