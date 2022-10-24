@@ -29,10 +29,10 @@ class TravelmarkActivity : AppCompatActivity() {
     lateinit var app : MainApp
 
     // var location = Location(52.245696, -7.139102, 15f)
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var edit = false
 
         registerImagePickerCallback()
         registerMapCallback()
@@ -108,12 +108,19 @@ class TravelmarkActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_travelmark, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> { finish() }
+            R.id.item_cancel -> {
+                finish()
+            }
+            R.id.item_delete -> {
+                app.travelmarks.delete(travelmark)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -37,6 +37,10 @@ class TravelmarkMemStore: TravelmarkStore {
         }
     }
 
+    override fun delete(placemark: TravelmarkModel) {
+        travelmarks.remove(placemark)
+    }
+
     fun logAll() {
         travelmarks.forEach{ i("${it}") }
     }

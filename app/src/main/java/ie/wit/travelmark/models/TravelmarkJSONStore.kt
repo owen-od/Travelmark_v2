@@ -65,6 +65,11 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         travelmarks = gsonBuilder.fromJson(jsonString, listType)
     }
 
+    override fun delete(placemark: TravelmarkModel) {
+        travelmarks.remove(placemark)
+        serialize()
+    }
+
     private fun logAll() {
         travelmarks.forEach { Timber.i("$it") }
     }
