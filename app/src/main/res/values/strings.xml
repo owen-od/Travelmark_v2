@@ -22,4 +22,5 @@
     <string name="travelmark_image_placeholder">Travelmark Image</string>
     <string name="travelmark_title_placeholder">Travelmark Title</string>
     <string name="travelmark_description_placeholder">Travelmark Description</string>
+    <string name="travelmark_category_placeholder">Travelmark Category</string>
 </resources>
