@@ -55,6 +55,11 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         }
     }
 
+    override fun findTravelmarkById(travelmarkId: Long): TravelmarkModel? {
+        var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmarkId }
+        return foundTravelmark
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(travelmarks, listType)
         write(context, JSON_FILE, jsonString)
@@ -65,8 +70,8 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         travelmarks = gsonBuilder.fromJson(jsonString, listType)
     }
 
-    override fun delete(placemark: TravelmarkModel) {
-        travelmarks.remove(placemark)
+    override fun delete(travelmark: TravelmarkModel) {
+        travelmarks.remove(travelmark)
         serialize()
     }
 

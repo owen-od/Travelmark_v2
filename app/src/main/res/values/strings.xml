@@ -18,4 +18,8 @@
     <string name="option_eat">Food to eat</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_travelmark_maps">TravelmarkMapsActivity</string>
+    <string name="travelmark_image_placeholder">Travelmark Image</string>
+    <string name="travelmark_title_placeholder">Travelmark Title</string>
+    <string name="travelmark_description_placeholder">Travelmark Description</string>
 </resources>

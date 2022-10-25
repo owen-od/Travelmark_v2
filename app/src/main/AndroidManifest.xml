@@ -20,6 +20,10 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
+            android:name=".activities.TravelmarkMapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_travelmark_maps" />
+        <activity
             android:name=".activities.MapActivity"
             android:exported="false"
             android:label="@string/title_activity_map" />
@@ -34,7 +38,7 @@
         </activity>
         <activity
             android:name=".activities.TravelmarkActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

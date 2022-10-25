@@ -20,6 +20,7 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityTravelmarkListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         setContentView(binding.root)
 
         registerRefreshCallback()
+        registerMapCallback()
 
         app = application as MainApp
 
@@ -49,6 +51,10 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
                 val launcherIntent = Intent(this, TravelmarkActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, TravelmarkMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -63,6 +69,12 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { loadTravelmarks() }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {  }
     }
 
     private fun loadTravelmarks() {

@@ -37,8 +37,13 @@ class TravelmarkMemStore: TravelmarkStore {
         }
     }
 
-    override fun delete(placemark: TravelmarkModel) {
-        travelmarks.remove(placemark)
+    override fun findTravelmarkById(travelmarkId: Long): TravelmarkModel? {
+        var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmarkId }
+        return foundTravelmark
+    }
+
+    override fun delete(travelmark: TravelmarkModel) {
+        travelmarks.remove(travelmark)
     }
 
     fun logAll() {
