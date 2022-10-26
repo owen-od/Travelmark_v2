@@ -6,6 +6,7 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import ie.wit.travelmark.helpers.*
 import timber.log.Timber
+import timber.log.Timber.i
 import java.lang.reflect.Type
 import java.util.*
 
@@ -53,6 +54,7 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
             foundTravelmark.lng = travelmark.lng
             foundTravelmark.zoom = travelmark.zoom
             foundTravelmark.rating = travelmark.rating
+            serialize()
         }
     }
 
