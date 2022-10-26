@@ -54,7 +54,7 @@ class TravelmarkActivity : AppCompatActivity() {
             binding.travelmarkLocation.setText(travelmark.location)
             binding.btnAdd.setText(R.string.menu_saveTravelmark)
             binding.addPlacemarkHeader.setText("Update Travelmark")
-            binding.travelmarkRating.setRating(travelmark.rating)
+            binding.travelmarkRating.rating = travelmark.rating
             Picasso.get()
                 .load(travelmark.image)
                 .into(binding.travelmarkImage)
