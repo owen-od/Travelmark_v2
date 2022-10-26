@@ -54,6 +54,7 @@ class TravelmarkActivity : AppCompatActivity() {
             binding.travelmarkLocation.setText(travelmark.location)
             binding.btnAdd.setText(R.string.menu_saveTravelmark)
             binding.addPlacemarkHeader.setText("Update Travelmark")
+            binding.travelmarkRating.setRating(travelmark.rating)
             Picasso.get()
                 .load(travelmark.image)
                 .into(binding.travelmarkImage)
@@ -66,6 +67,7 @@ class TravelmarkActivity : AppCompatActivity() {
             travelmark.location = binding.travelmarkLocation.text.toString()
             travelmark.title = binding.travelmarkTitle.text.toString()
             travelmark.description = binding.travelmarkDescription.text.toString()
+            travelmark.rating = binding.travelmarkRating.rating
 
             travelmark.category = when (binding.travelmarkCategory.checkedRadioButtonId) {
                 R.id.option_see -> "Sight to see"

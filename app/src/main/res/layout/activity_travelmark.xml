@@ -114,12 +114,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"
-                    android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_location"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/header"
@@ -165,6 +165,25 @@
                         android:checked="false"
                         android:text="@string/option_eat" />
                 </RadioGroup>
+
+                <TextView
+                    android:id="@+id/rating_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/travelmark_rating_header"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RatingBar
+                    android:id="@+id/travelmarkRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    android:theme="@style/Widget.AppCompat.RatingBar" />
 
                 <Button
                     android:id="@+id/btnAdd"

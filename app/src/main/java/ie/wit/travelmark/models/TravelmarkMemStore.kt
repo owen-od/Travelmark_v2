@@ -33,6 +33,7 @@ class TravelmarkMemStore: TravelmarkStore {
             foundTravelmark.lat = travelmark.lat
             foundTravelmark.lng = travelmark.lng
             foundTravelmark.zoom = travelmark.zoom
+            foundTravelmark.rating = travelmark.rating
             logAll()
         }
     }
