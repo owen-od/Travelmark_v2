@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/menu_searchTravelmark"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/item_map"
         android:icon="@android:drawable/ic_menu_mapmode"
         android:title="@string/menu_addTravelmark"
@@ -11,5 +17,5 @@
         android:id="@+id/item_add"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/menu_addTravelmark"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

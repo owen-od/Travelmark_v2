@@ -6,6 +6,7 @@
     <string name="hint_travelmarkLocation">Location</string>
     <string name="menu_addTravelmark">Add</string>
     <string name="menu_cancelTravelmark">Cancel</string>
+    <string name="menu_searchTravelmark">Search</string>
     <string name="menu_saveTravelmark"> Save Travelmark </string>
     <string name="button_addImage"> Add Image </string>
     <string name="button_changeImage">Change Image</string>
@@ -23,4 +24,5 @@
     <string name="travelmark_title_placeholder">Travelmark Title</string>
     <string name="travelmark_description_placeholder">Travelmark Description</string>
     <string name="travelmark_category_placeholder">Travelmark Category</string>
+    <string name="search_hint">Search Location</string>
 </resources>
