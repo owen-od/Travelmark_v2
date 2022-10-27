@@ -12,6 +12,7 @@
     <string name="button_changeImage">Change Image</string>
     <string name="select_travelmark_image">Select travelmark image</string>
     <string name="warning_enterTitle">Please enter a title</string>
+    <string name="warning_incorrect_credentials">Incorrect Login Credentials</string>
     <string name="travelmark_category_header">Choose your category</string>
     <string name="travelmark_rating_header">Rate travelmark</string>
     <string name="add_travelmark_header">Make your mark</string>
@@ -26,4 +27,8 @@
     <string name="travelmark_description_placeholder">Travelmark Description</string>
     <string name="travelmark_category_placeholder">Travelmark Category</string>
     <string name="search_hint">Search Location</string>
+    <string name="login_message">Sign in</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="button_sign_in">Sign in</string>
 </resources>
