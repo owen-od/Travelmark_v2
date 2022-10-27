@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.squareup.picasso.Picasso
+import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityTravelmarkMapsBinding
 import ie.wit.travelmark.databinding.ContentTravelmarkMapsBinding
 import ie.wit.travelmark.main.MainApp
@@ -37,9 +36,11 @@ class TravelmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListe
     fun configureMap() {
         map.setOnMarkerClickListener(this)
         map.uiSettings.setZoomControlsEnabled(true)
+        // var customMarker = BitmapDescriptorFactory.fromResource(R.drawable....)
+        var colourMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
         app.travelmarks.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc)
+            val options = MarkerOptions().title(it.title).position(loc).icon(colourMarker)
             map.addMarker(options)?.tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
