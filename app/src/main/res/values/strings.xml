@@ -20,6 +20,7 @@
     <string name="option_do">Thing to do</string>
     <string name="option_eat">Food to eat</string>
     <string name="button_location">Set Location</string>
+    <string name="button_register">Sign Up</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_travelmark_maps">TravelmarkMapsActivity</string>
     <string name="travelmark_image_placeholder">Travelmark Image</string>
@@ -28,7 +29,10 @@
     <string name="travelmark_category_placeholder">Travelmark Category</string>
     <string name="search_hint">Search Location</string>
     <string name="login_message">Sign in</string>
+    <string name="register_message">Create your account</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="button_sign_in">Sign in</string>
+    <string name="message_no_account">Don\'t have an account?</string>
+    <string name="message_create_account">Create one</string>
 </resources>

@@ -8,15 +8,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityLoginBinding
+import ie.wit.travelmark.databinding.ActivityRegisterBinding
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.UserModel
-import timber.log.Timber.i
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var travelmarkIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var registerIntentLauncher : ActivityResultLauncher<Intent>
     lateinit var app : MainApp
 
     var user = UserModel()
@@ -24,30 +23,28 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         registerTravelmarkCallback()
-        registerRegisterCallback()
 
         app = application as MainApp
 
-        binding.login.setOnClickListener {
-            var username = binding.username.text.toString()
-            var password = binding.password.text.toString()
-            if(app.users.login(username, password)) {
+        binding.registerButton.setOnClickListener {
+            user.username = binding.username.text.toString()
+            user.password = binding.password.text.toString()
+            if(!user.username.isNullOrBlank() && !user.password.isNullOrBlank()){
+                app.users.createUser(user.copy())
+                Snackbar
+                    .make(it, "User Created", Snackbar.LENGTH_LONG)
+                    .show()
                 val launcherIntent = Intent(this, TravelmarkListActivity::class.java)
                 travelmarkIntentLauncher.launch(launcherIntent)
             } else {
                 Snackbar
-                    .make(it, R.string.warning_incorrect_credentials, Snackbar.LENGTH_LONG)
+                    .make(it, "User not created - fill all fields", Snackbar.LENGTH_LONG)
                     .show()
             }
-        }
-
-        binding.registerMessage.setOnClickListener {
-            val launcherIntent = Intent(this, RegisterActivity::class.java)
-            registerIntentLauncher.launch(launcherIntent)
         }
     }
 
@@ -56,10 +53,4 @@ class LoginActivity : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             {  }
     }
-    private fun registerRegisterCallback() {
-        registerIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            {  }
-    }
-
 }
