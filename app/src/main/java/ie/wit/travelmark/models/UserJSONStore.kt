@@ -37,10 +37,15 @@ class UserJSONStore(private val context: Context) : UserStore {
         user.id = generateUserId()
         users.add(user)
         serialize()
+        logAll()
     }
 
     override fun login(username: String, password: String): Boolean {
-        return username.equals("admin") && password.equals("admin")
+        var foundUser: UserModel? = users.find { t -> t.username == username }
+        if (foundUser != null) {
+            return foundUser.password == password
+        }
+        return false
     }
 
     private fun serialize() {
