@@ -11,7 +11,7 @@
     <string name="button_addImage"> Add Image </string>
     <string name="button_changeImage">Change Image</string>
     <string name="select_travelmark_image">Select travelmark image</string>
-    <string name="warning_enterTitle">Please enter a title</string>
+    <string name="warning_enterTitle">Please enter a location and title for your travelmark</string>
     <string name="warning_incorrect_credentials">Incorrect Login Credentials</string>
     <string name="travelmark_category_header">Choose your category</string>
     <string name="travelmark_rating_header">Rate travelmark</string>

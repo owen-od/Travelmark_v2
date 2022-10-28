@@ -32,7 +32,15 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.registerButton.setOnClickListener {
             user.username = binding.username.text.toString()
+            if (user.username.length < 3) {
+                user.username = ""
+                binding.username.setError("Username must be 3 characters or more")
+            }
             user.password = binding.password.text.toString()
+            if (user.password.length < 3) {
+                user.password = ""
+                binding.password.setError("Password must be 3 characters or more")
+            }
             if(!user.username.isNullOrBlank() && !user.password.isNullOrBlank()){
                 app.users.createUser(user.copy())
                 Snackbar

@@ -71,7 +71,13 @@ class TravelmarkActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener() {
             travelmark.location = binding.travelmarkLocation.text.toString()
+            if (travelmark.location.isEmpty()) {
+                binding.travelmarkLocation.setError("Mandatory field")
+            }
             travelmark.title = binding.travelmarkTitle.text.toString()
+            if (travelmark.title.isEmpty()) {
+                binding.travelmarkTitle.setError("Mandatory field")
+            }
             travelmark.description = binding.travelmarkDescription.text.toString()
             travelmark.rating = binding.travelmarkRating.rating
 
@@ -82,19 +88,21 @@ class TravelmarkActivity : AppCompatActivity() {
                 else -> "N/A"
             }
 
-            if (travelmark.title.isEmpty()) {
+            if (travelmark.title.isEmpty() || travelmark.location.isEmpty()) {
                 Snackbar
                     .make(it, R.string.warning_enterTitle, Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 if (edit) {
                     app.travelmarks.update(travelmark.copy())
+                    setResult(RESULT_OK)
+                    finish()
                 } else {
                     app.travelmarks.create(travelmark.copy())
+                    setResult(RESULT_OK)
+                    finish()
                 }
             }
-            setResult(RESULT_OK)
-            finish()
         }
 
         binding.chooseImage.setOnClickListener {
