@@ -55,6 +55,12 @@ class TravelmarkActivity : AppCompatActivity() {
             binding.btnAdd.setText(R.string.menu_saveTravelmark)
             binding.addPlacemarkHeader.setText("Update Travelmark")
             binding.travelmarkRating.rating = travelmark.rating
+            var categoryId = when(travelmark.category) {
+                "Thing to do" -> R.id.option_do
+                "Food to eat" -> R.id.option_eat
+                else -> R.id.option_see
+            }
+            binding.travelmarkCategory.check(categoryId)
             Picasso.get()
                 .load(travelmark.image)
                 .into(binding.travelmarkImage)
