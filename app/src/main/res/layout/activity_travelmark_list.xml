@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_option_all"
-                app:chipBackgroundColor="@color/colorAccent"/>
+                app:chipBackgroundColor="@color/colorSecondary"/>
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_option_see"
-                app:chipBackgroundColor="@color/colorAccent"/>
+                app:chipBackgroundColor="@color/colorSecondary"/>
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_option_do"
-                app:chipBackgroundColor="@color/colorAccent"/>
+                app:chipBackgroundColor="@color/colorSecondary"/>
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_option_eat"
-                app:chipBackgroundColor="@color/colorAccent"/>
+                app:chipBackgroundColor="@color/colorSecondary"/>
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
 
