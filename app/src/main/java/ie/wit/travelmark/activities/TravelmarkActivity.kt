@@ -43,6 +43,9 @@ class TravelmarkActivity : AppCompatActivity() {
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
         app = application as MainApp
         i("Travelmark Activity started..")
 
@@ -135,6 +138,9 @@ class TravelmarkActivity : AppCompatActivity() {
             }
             R.id.item_delete -> {
                 app.travelmarks.delete(travelmark)
+                finish()
+            }
+            android.R.id.home -> {
                 finish()
             }
         }

@@ -1,6 +1,7 @@
 package ie.wit.travelmark.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,7 +25,11 @@ class TravelmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListe
         binding = ActivityTravelmarkMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //binding.toolbar.title = title
+
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
         contentBinding = ContentTravelmarkMapsBinding.bind(binding.root)
         contentBinding.mapView.onCreate(savedInstanceState)
         contentBinding.mapView.getMapAsync {
@@ -79,5 +84,14 @@ class TravelmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListe
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         contentBinding.mapView.onSaveInstanceState(outState)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
