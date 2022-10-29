@@ -16,7 +16,8 @@ The application contains the below additional features:
 + View all travelmarks on map activity
 + Search for travelmarks by location
 + Filter and search travelmarks by selected chip/category
-+ Use of UI elements such as radio buttons, rating bar and chipset.
++ Use of UI elements such as radio buttons, rating bar and chipset
++ Navigation with back/up button
 
 ## Setup requirements
 
@@ -60,7 +61,7 @@ Users can add a new travelmark by clicking the + icon on the homepage and naviga
 
 >Add new travelmark
 
-![Add Travelmarks](/app/src/images/travelmark_add.PNG)
+![Add Travelmarks](/app/src/images/travelmarks_add2.PNG)
 
 ### Search and filter travelmarks
 
@@ -80,7 +81,7 @@ Users can view all travelmarks on a map. Individual travelmarks can be selected 
 
 >View all travelmarks on map
 
-![Travelmarks Map](/app/src/images/travelmarks_map.PNG)
+![Travelmarks Map](/app/src/images/travelmarks_map2.PNG)
 
 ## References
 
