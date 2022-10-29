@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import ie.wit.travelmark.R
 import ie.wit.travelmark.adapters.TravelmarkAdapter
 import ie.wit.travelmark.adapters.TravelmarkListener
@@ -23,8 +25,8 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityTravelmarkListBinding
-    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var refreshIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,22 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
 
+        binding.chipOptions.check(R.id.chip_option_all)
+
+        binding.chipOptions.setOnCheckedChangeListener(object: ChipGroup.OnCheckedChangeListener {
+            override fun onCheckedChanged(chipGroup: ChipGroup, id: Int) {
+                var selectedChip = chipGroup.findViewById(id) as Chip
+                var chipCategory = when (selectedChip.id) {
+                    R.id.chip_option_see -> "Sight to see"
+                    R.id.chip_option_do -> "Thing to do"
+                    R.id.chip_option_eat -> "Food to eat"
+                    else -> "All"
+                }
+                i(chipCategory)
+                filterCategory(chipCategory)
+            }
+        })
+
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         loadTravelmarks()
@@ -52,17 +70,31 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         val searchView: SearchView = searchItem.getActionView() as SearchView
         searchView.setQueryHint(getString(R.string.search_hint))
 
-        // below line is to call set on query text listener method.
+        // call set on query text listener method.
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                filter(query)
+                val checkedChip = binding.chipOptions.checkedChipId
+                var chipCategory = when (checkedChip) {
+                    R.id.chip_option_see -> "Sight to see"
+                    R.id.chip_option_do -> "Thing to do"
+                    R.id.chip_option_eat -> "Food to eat"
+                    else -> "All"
+                }
+                filter(query, chipCategory)
                 //i(query)
                 return false
             }
 
             override fun onQueryTextChange(msg: String): Boolean {
-                filter(msg)
-                //i(msg)
+                val checkedChip = binding.chipOptions.checkedChipId
+                var chipCategory = when (checkedChip) {
+                    R.id.chip_option_see -> "Sight to see"
+                    R.id.chip_option_do -> "Thing to do"
+                    R.id.chip_option_eat -> "Food to eat"
+                    else -> "All"
+                }
+                filter(msg, chipCategory)
+                //i(query)
                 return false
             }
         })
@@ -110,10 +142,11 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    private fun filter(text: String) {
+    private fun filter(text: String, category: String) {
         val filteredlist: MutableList<TravelmarkModel> = mutableListOf()
+        val travelmarks = app.travelmarks.findTravelmarksByCategory(category)
 
-        for (item in app.travelmarks.findAll()) {
+        for (item in travelmarks) {
             if (item.location.toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item)
                 // i("item added to list")
@@ -121,10 +154,38 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
         }
         if (filteredlist.isEmpty()) {
             Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
-            loadTravelmarks()
+            binding.recyclerView.adapter = TravelmarkAdapter(filteredlist, this)
+            binding.recyclerView.adapter?.notifyDataSetChanged()
         } else {
             binding.recyclerView.adapter = TravelmarkAdapter(filteredlist, this)
             binding.recyclerView.adapter?.notifyDataSetChanged()
         }
+    }
+
+    private fun filterCategory(category: String) {
+        var filteredlist: MutableList<TravelmarkModel>
+        var travelmarks = app.travelmarks.findAll().toMutableList()
+
+        when (category) {
+            "all" -> {
+                filteredlist = travelmarks
+            }
+            "Thing to do" -> {
+                filteredlist = travelmarks.filter { it.category == "Thing to do" } as MutableList<TravelmarkModel>
+            }
+
+            "Sight to see" -> {
+                filteredlist = travelmarks.filter { it.category == "Sight to see" } as MutableList<TravelmarkModel>
+            }
+
+            "Food to eat" -> {
+                filteredlist = travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
+            }
+            else -> {
+                filteredlist = travelmarks
+            }
+        }
+        binding.recyclerView.adapter = TravelmarkAdapter(filteredlist, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }

@@ -63,6 +63,32 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         return foundTravelmark
     }
 
+    override fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel> {
+        var filteredlist: MutableList<TravelmarkModel>
+        var travelmarks = findAll().toMutableList()
+
+        when (travelmarkCategory) {
+            "all" -> {
+                filteredlist = travelmarks
+            }
+            "Thing to do" -> {
+                filteredlist = travelmarks.filter { it.category == "Thing to do" } as MutableList<TravelmarkModel>
+            }
+
+            "Sight to see" -> {
+                filteredlist = travelmarks.filter { it.category == "Sight to see" } as MutableList<TravelmarkModel>
+            }
+
+            "Food to eat" -> {
+                filteredlist = travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
+            }
+            else -> {
+                filteredlist = travelmarks
+            }
+        }
+        return filteredlist
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(travelmarks, listType)
         write(context, JSON_FILE, jsonString)
