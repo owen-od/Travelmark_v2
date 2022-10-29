@@ -3,7 +3,7 @@
 
 Name: Owen O'Donnell
 
-## Overview.
+## Overview
 
 An android application created in Android studio and written in Kotlin. The application was developed for assignment 1 of the mobile application development module in the HDip in Computer Science in SETU. The application allows users to add “travelmarks” in three pre-defined categories: things to do; sights to see; and foods to eat. Users must select a title, location and category for each travelmark and may additionally add a description, image, location and rating.
 
@@ -18,13 +18,13 @@ The application contains the below additional features:
 + Filter and search travelmarks by selected chip/category
 + Use of UI elements such as radio buttons, rating bar and chipset.
 
-## Setup requirements.
+## Setup requirements
 
 + Clone this repository with the following command: `git clone https://github.com/owen-od/Travelmark`
 
 + Open project in Android studio and run (note this will require and emulator running API 29)
 
-## App Design.
+## App Design
 
 ### Splash Screen
 
