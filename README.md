@@ -49,19 +49,25 @@ On application launch, users may log in to their account or alternatively create
 
 ### List travelmarks
 
-All travelmarks are displayed back to the user in a recycler view on the app home page. Each travelmark is clickable so the user can read and edit its details
+All travelmarks are displayed back to the user in a recycler view on the app home page. Each travelmark is clickable so the user can read and edit its details.
 
 >List all travelmarks
 
 ![List Travelmarks](/app/src/images/travelmark_list.PNG)
 
-### Add travelmarks
+### Add or edit travelmarks
 
-Users can add a new travelmark by clicking the + icon on the homepage and navigating to the add travelemark page. The location, title and category fields are mandatory. Users may optionally add a description, rating, location and image.
+Users can add a new travelmark by clicking the + icon on the homepage and navigating to the add travelmark page. The location, title and category fields are mandatory. Users may optionally add a description, rating, location and image.
 
 >Add new travelmark
 
-![Add Travelmarks](/app/src/images/travelmarks_add2.PNG)
+![Add Travelmark](/app/src/images/travelmarks_add2.PNG)
+
+Users may edit existing travelmarks by clicking on them. This opens an edit view where all selected details are pre-populated (i.e. location, title, description, image, map location, category and rating).
+
+>Edit travelmark
+
+![Edit Travelmark](/app/src/images/travelmark_edit.PNG)
 
 ### Search and filter travelmarks
 
@@ -77,7 +83,7 @@ Users can search travelmarks by location on the main page. Users may also filter
 
 ### View on map
 
-Users can view all travelmarks on a map. Individual travelmarks can be selected by clicking on the marker and information on them will be displayed
+Users can view all travelmarks on a map. Individual travelmarks can be selected by clicking on the marker and information on them will be displayed.
 
 >View all travelmarks on map
 
@@ -93,4 +99,4 @@ In addition to the official documentation and lecture materials, the below resou
 
 ## Project demo
 
-A video demo of the project is available on Youtube at the following url [TODO]
+A video demo of the project is available on Youtube at the following url [https://youtu.be/vX89dv8GnrM]
