@@ -67,7 +67,7 @@ Users may edit existing travelmarks by clicking on them. This opens an edit view
 
 >Edit travelmark
 
-![Edit Travelmark](/app/src/images/travelmark_edit.PNG)
+![Edit Travelmark](/app/src/images/travelmarks_edit.PNG)
 
 ### Search and filter travelmarks
 
