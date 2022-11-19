@@ -1,11 +1,11 @@
 
-# Mobile App Development Assignment 1
+# Mobile App Development Assignment 2
 
 Name: Owen O'Donnell
 
 ## Overview
 
-An android application created in Android studio and written in Kotlin. The application was developed for assignment 1 of the mobile application development module in the HDip in Computer Science in SETU. The application allows users to add “travelmarks” in three pre-defined categories: things to do; sights to see; and foods to eat. Users must select a title, location and category for each travelmark and may additionally add a description, image, location and rating.
+An android application created in Android studio and written in Kotlin. The application was developed for assignment 2 of the mobile application development module in the HDip in Computer Science in SETU. The application allows users to add “travelmarks” in three pre-defined categories: things to do; sights to see; and foods to eat. Users must select a title, location and category for each travelmark and may additionally add a description, image, location and rating.
 
 The application contains the below additional features:
 
