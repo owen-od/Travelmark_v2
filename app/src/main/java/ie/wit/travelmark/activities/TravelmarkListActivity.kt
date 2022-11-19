@@ -18,7 +18,7 @@ import ie.wit.travelmark.adapters.TravelmarkListener
 import ie.wit.travelmark.databinding.ActivityTravelmarkListBinding
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
-import timber.log.Timber
+import ie.wit.travelmark.views.travelmark.TravelmarkView
 import timber.log.Timber.i
 
 class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
@@ -104,7 +104,7 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-                val launcherIntent = Intent(this, TravelmarkActivity::class.java)
+                val launcherIntent = Intent(this, TravelmarkView::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
             R.id.item_map -> {
@@ -116,7 +116,7 @@ class TravelmarkListActivity : AppCompatActivity(), TravelmarkListener {
     }
 
     override fun onTravelmarkClick(travelmark: TravelmarkModel) {
-        val launcherIntent = Intent(this, TravelmarkActivity::class.java)
+        val launcherIntent = Intent(this, TravelmarkView::class.java)
         launcherIntent.putExtra("travelmark_edit", travelmark)
         refreshIntentLauncher.launch(launcherIntent)
     }
