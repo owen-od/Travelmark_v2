@@ -10,7 +10,7 @@ import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityLoginBinding
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.UserModel
-import timber.log.Timber.i
+import ie.wit.travelmark.views.travelmarklist.TravelmarkListView
 
 class LoginActivity : AppCompatActivity() {
 
@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.password.setError("Password must be 3 characters or more")
             }
             if(app.users.login(username, password)) {
-                val launcherIntent = Intent(this, TravelmarkListActivity::class.java)
+                val launcherIntent = Intent(this, TravelmarkListView::class.java)
                 travelmarkIntentLauncher.launch(launcherIntent)
             } else {
                 Snackbar

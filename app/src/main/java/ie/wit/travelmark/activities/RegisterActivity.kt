@@ -6,11 +6,10 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
-import ie.wit.travelmark.R
-import ie.wit.travelmark.databinding.ActivityLoginBinding
 import ie.wit.travelmark.databinding.ActivityRegisterBinding
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.UserModel
+import ie.wit.travelmark.views.travelmarklist.TravelmarkListView
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -46,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
                 Snackbar
                     .make(it, "User Created", Snackbar.LENGTH_LONG)
                     .show()
-                val launcherIntent = Intent(this, TravelmarkListActivity::class.java)
+                val launcherIntent = Intent(this, TravelmarkListView::class.java)
                 travelmarkIntentLauncher.launch(launcherIntent)
             } else {
                 Snackbar
