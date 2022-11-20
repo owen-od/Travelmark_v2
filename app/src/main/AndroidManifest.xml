@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Travelmark"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name=".views.splash.SplashScreenView"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
