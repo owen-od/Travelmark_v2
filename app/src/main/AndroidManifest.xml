@@ -24,7 +24,7 @@
         </intent-filter>
         </activity>
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".views.register.RegisterView"
             android:exported="true" >
         </activity>
         <activity
