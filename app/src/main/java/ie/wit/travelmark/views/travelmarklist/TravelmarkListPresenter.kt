@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import ie.wit.travelmark.R
-import ie.wit.travelmark.activities.TravelmarkMapsActivity
+import ie.wit.travelmark.views.travelmarksmap.TravelmarksMapView
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
 import ie.wit.travelmark.views.travelmark.TravelmarkView
@@ -28,7 +28,7 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
     }
 
     fun doShowTravelmarksMap() {
-        val launcherIntent = Intent(view, TravelmarkMapsActivity::class.java)
+        val launcherIntent = Intent(view, TravelmarksMapView::class.java)
         refreshIntentLauncher.launch(launcherIntent)
     }
 

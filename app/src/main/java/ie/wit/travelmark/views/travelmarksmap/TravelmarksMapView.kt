@@ -1,22 +1,21 @@
-package ie.wit.travelmark.activities
+package ie.wit.travelmark.views.travelmarksmap
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.squareup.picasso.Picasso
-import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityTravelmarkMapsBinding
 import ie.wit.travelmark.databinding.ContentTravelmarkMapsBinding
 import ie.wit.travelmark.main.MainApp
+import ie.wit.travelmark.models.TravelmarkModel
 
-class TravelmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     private lateinit var binding: ActivityTravelmarkMapsBinding
     private lateinit var contentBinding: ContentTravelmarkMapsBinding
-    lateinit var map: GoogleMap
+    lateinit var presenter: TravelmarksMapPresenter
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,41 +23,30 @@ class TravelmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListe
         app = application as MainApp
         binding = ActivityTravelmarkMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //binding.toolbar.title = title
-
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
+        presenter = TravelmarksMapPresenter(this)
+
         contentBinding = ContentTravelmarkMapsBinding.bind(binding.root)
+
         contentBinding.mapView.onCreate(savedInstanceState)
         contentBinding.mapView.getMapAsync {
-            map = it
-            configureMap()
+            presenter.doPopulateMap(it)
         }
     }
 
-    fun configureMap() {
-        map.setOnMarkerClickListener(this)
-        map.uiSettings.setZoomControlsEnabled(true)
-        // var customMarker = BitmapDescriptorFactory.fromResource(R.drawable....)
-        var colourMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
-        app.travelmarks.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc).icon(colourMarker)
-            map.addMarker(options)?.tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
-        }
-    }
-
-    override fun onMarkerClick(marker: Marker): Boolean {
-        val travelmarkId = marker.tag as Long
-        val travelmark = app.travelmarks.findTravelmarkById(travelmarkId)
+    fun showTravelmark(travelmark: TravelmarkModel) {
         contentBinding.currentTitle.text = travelmark?.title
         contentBinding.currentDescription.text = travelmark?.description
         contentBinding.currentCategory.text = travelmark?.category
         Picasso.get().load(travelmark?.image).resize(250,250).into(contentBinding.currentImage)
-        return false
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        presenter.doMarkerSelected(marker)
+        return true
     }
 
     override fun onDestroy() {
@@ -89,7 +77,7 @@ class TravelmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                finish()
+                presenter.doHome()
             }
         }
         return super.onOptionsItemSelected(item)

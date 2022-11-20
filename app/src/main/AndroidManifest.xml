@@ -37,7 +37,7 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".activities.TravelmarkMapsActivity"
+            android:name=".views.travelmarksmap.TravelmarksMapView"
             android:exported="false"
             android:label="@string/title_activity_travelmark_maps" />
         <activity

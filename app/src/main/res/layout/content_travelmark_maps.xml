@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.TravelmarkMapsActivity"
+    tools:context=".views.travelmarksmap.TravelmarksMapView"
     tools:showIn="@layout/activity_travelmark_maps">
 
     <com.google.android.gms.maps.MapView
