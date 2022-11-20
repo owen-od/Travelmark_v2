@@ -6,7 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import ie.wit.travelmark.R
-import ie.wit.travelmark.activities.MapActivity
+import ie.wit.travelmark.views.editlocation.EditLocationView
 import ie.wit.travelmark.databinding.ActivityTravelmarkBinding
 import ie.wit.travelmark.helpers.showImagePicker
 import ie.wit.travelmark.main.MainApp
@@ -65,7 +65,7 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
             location.lng = travelmark.lng
             location.zoom = travelmark.zoom
         }
-        val launcherIntent = Intent(view, MapActivity::class.java)
+        val launcherIntent = Intent(view, EditLocationView::class.java)
             .putExtra("location", location)
         mapIntentLauncher.launch(launcherIntent)
     }
