@@ -1,9 +1,12 @@
 package ie.wit.travelmark.views.travelmark
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
 import ie.wit.travelmark.R
 import ie.wit.travelmark.views.editlocation.EditLocationView
@@ -12,25 +15,42 @@ import ie.wit.travelmark.helpers.showImagePicker
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.Location
 import ie.wit.travelmark.models.TravelmarkModel
+import ie.wit.travelmark.views.editlocation.checkLocationPermissions
 import timber.log.Timber
 
 class TravelmarkPresenter (private val view: TravelmarkView) {
 
     var travelmark = TravelmarkModel()
     var binding: ActivityTravelmarkBinding = ActivityTravelmarkBinding.inflate(view.layoutInflater)
+    var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    val location = Location(52.245696, -7.139102, 15f)
 
     var edit = false
     var app: MainApp = view.application as MainApp
 
     init {
+
+        doPermissionLauncher()
+        registerImagePickerCallback()
+        registerMapCallback()
+
         if (view.intent.hasExtra("travelmark_edit")) {
             edit = true
             travelmark = view.intent.extras?.getParcelable("travelmark_edit")!!
             view.showTravelmark(travelmark)
             view.showEditView()
         }
+        else {
+            if (checkLocationPermissions(view)) {
+                doSetCurrentLocation()
+            }
+            travelmark.lat = location.lat
+            travelmark.lng = location.lng
+        }
+        doPermissionLauncher()
         registerImagePickerCallback()
         registerMapCallback()
     }
@@ -59,7 +79,6 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
     }
 
     fun doSetLocation() {
-        val location = Location(52.245696, -7.139102, 15f)
         if (travelmark.zoom != 0f) {
             location.lat = travelmark.lat
             location.lng = travelmark.lng
@@ -94,6 +113,21 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
 
     fun doHome() {
         view.finish()
+    }
+
+    fun locationUpdate(lat: Double, lng: Double) {
+        travelmark.lat = lat
+        travelmark.lng = lng
+        travelmark.zoom = 15f
+        // view.showTravelmark(travelmark)
+    }
+
+    @SuppressLint("MissingPermission")
+    fun doSetCurrentLocation() {
+        Timber.i("setting location from doSetLocation")
+        locationService.lastLocation.addOnSuccessListener {
+            locationUpdate(it.latitude, it.longitude)
+        }
     }
 
     private fun registerImagePickerCallback() {
@@ -132,6 +166,19 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
                         } // end of if
                     }
                     AppCompatActivity.RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun doPermissionLauncher() {
+        Timber.i("permission check called")
+        requestPermissionLauncher =
+            view.registerForActivityResult(ActivityResultContracts.RequestPermission())
+            { isGranted: Boolean ->
+                if (isGranted) {
+                    doSetCurrentLocation()
+                } else {
+                    locationUpdate(location.lat, location.lng)
                 }
             }
     }
