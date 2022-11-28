@@ -8,6 +8,9 @@ import ie.wit.travelmark.views.travelmarksmap.TravelmarksMapView
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
 import ie.wit.travelmark.views.travelmark.TravelmarkView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class TravelmarkListPresenter (private val view: TravelmarkListView) {
@@ -38,7 +41,7 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         refreshIntentLauncher.launch(launcherIntent)
     }
 
-    fun doSearch(query: String, checkedChip: Int) {
+    suspend fun doSearch(query: String, checkedChip: Int) {
         var chipCategory = when (checkedChip) {
             R.id.chip_option_see -> "Sight to see"
             R.id.chip_option_do -> "Thing to do"
@@ -49,7 +52,7 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         //i(query)
     }
 
-    fun doTextFilter(text: String, category: String): MutableList<TravelmarkModel> {
+    suspend fun doTextFilter(text: String, category: String): MutableList<TravelmarkModel> {
         val filteredlist: MutableList<TravelmarkModel> = mutableListOf()
         val travelmarks = app.travelmarks.findTravelmarksByCategory(category)
 
@@ -62,7 +65,7 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         return filteredlist
     }
 
-    fun doCategoryFilter(category: String): MutableList<TravelmarkModel> {
+    suspend fun doCategoryFilter(category: String): MutableList<TravelmarkModel> {
         var filteredlist: MutableList<TravelmarkModel>
         var travelmarks = app.travelmarks.findAll().toMutableList()
 
@@ -88,7 +91,7 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         return filteredlist
     }
 
-    fun doChipChange(selectedChip: Int) {
+    suspend fun doChipChange(selectedChip: Int) {
         var chipCategory = when (selectedChip) {
             R.id.chip_option_see -> "Sight to see"
             R.id.chip_option_do -> "Thing to do"
@@ -99,12 +102,16 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         view.filterCategory(chipCategory)
     }
 
-    fun getTravelmarks() = app.travelmarks.findAll()
+    suspend fun getTravelmarks() = app.travelmarks.findAll()
 
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { getTravelmarks() }
+            {
+                GlobalScope.launch(Dispatchers.Main){
+                    getTravelmarks()
+                }
+            }
     }
     private fun registerMapCallback() {
         mapIntentLauncher =

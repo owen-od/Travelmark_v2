@@ -55,7 +55,7 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
         registerMapCallback()
     }
 
-    fun doAddorUpdate(location: String, title: String, description: String, rating: Float, category: Int  ) {
+    suspend fun doAddorUpdate(location: String, title: String, description: String, rating: Float, category: Int  ) {
         travelmark.location = location
         travelmark.title = title
         travelmark.description = description
@@ -102,7 +102,7 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
         }
     }
 
-    fun doDelete() {
+    suspend fun doDelete() {
         app.travelmarks.delete(travelmark)
         view.finish()
     }

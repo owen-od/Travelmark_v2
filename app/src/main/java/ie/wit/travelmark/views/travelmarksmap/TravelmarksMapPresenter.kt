@@ -16,7 +16,7 @@ class TravelmarksMapPresenter (val view: TravelmarksMapView) {
         app = view.application as MainApp
     }
 
-    fun doPopulateMap(map: GoogleMap) {
+    suspend fun doPopulateMap(map: GoogleMap) {
         map.setOnMarkerClickListener(view)
         map.uiSettings.setZoomControlsEnabled(true)
         // var customMarker = BitmapDescriptorFactory.fromResource(R.drawable....)
@@ -29,7 +29,7 @@ class TravelmarksMapPresenter (val view: TravelmarksMapView) {
         }
     }
 
-    fun doMarkerSelected(marker: Marker) {
+    suspend fun doMarkerSelected(marker: Marker) {
         val tag = marker.tag as Long
         val travelmark = app.travelmarks.findTravelmarkById(tag)
         if (travelmark != null) view.showTravelmark(travelmark)

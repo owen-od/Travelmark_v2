@@ -12,17 +12,17 @@ class TravelmarkMemStore: TravelmarkStore {
 
     val travelmarks = ArrayList<TravelmarkModel>()
 
-    override fun findAll(): List<TravelmarkModel> {
+    override suspend fun findAll(): List<TravelmarkModel> {
         return travelmarks
     }
 
-    override fun create(travelmark: TravelmarkModel) {
+    override suspend fun create(travelmark: TravelmarkModel) {
         travelmark.id = getId()
         travelmarks.add(travelmark)
         logAll()
     }
 
-    override fun update(travelmark: TravelmarkModel) {
+    override suspend fun update(travelmark: TravelmarkModel) {
         var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmark.id }
         if (foundTravelmark != null) {
             foundTravelmark.title = travelmark.title
@@ -38,12 +38,12 @@ class TravelmarkMemStore: TravelmarkStore {
         }
     }
 
-    override fun findTravelmarkById(travelmarkId: Long): TravelmarkModel? {
+    override suspend fun findTravelmarkById(travelmarkId: Long): TravelmarkModel? {
         var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmarkId }
         return foundTravelmark
     }
 
-    override fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel> {
+    override suspend fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel> {
         var filteredlist: MutableList<TravelmarkModel>
         var travelmarks = findAll().toMutableList()
 
@@ -69,7 +69,7 @@ class TravelmarkMemStore: TravelmarkStore {
         return filteredlist
     }
 
-    override fun delete(travelmark: TravelmarkModel) {
+    override suspend fun delete(travelmark: TravelmarkModel) {
         travelmarks.remove(travelmark)
     }
 

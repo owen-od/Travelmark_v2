@@ -10,6 +10,9 @@ import com.squareup.picasso.Picasso
 import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityTravelmarkBinding
 import ie.wit.travelmark.models.TravelmarkModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber.i
 
 class TravelmarkView : AppCompatActivity() {
@@ -44,13 +47,15 @@ class TravelmarkView : AppCompatActivity() {
                     .make(it, R.string.warning_enterTitle, Snackbar.LENGTH_LONG)
                     .show()
             } else {
-                presenter.doAddorUpdate(
-                    binding.travelmarkLocation.text.toString(),
-                    binding.travelmarkTitle.text.toString(),
-                    binding.travelmarkDescription.text.toString(),
-                    binding.travelmarkRating.rating,
-                    binding.travelmarkCategory.checkedRadioButtonId
-                )
+                GlobalScope.launch(Dispatchers.IO) {
+                    presenter.doAddorUpdate(
+                        binding.travelmarkLocation.text.toString(),
+                        binding.travelmarkTitle.text.toString(),
+                        binding.travelmarkDescription.text.toString(),
+                        binding.travelmarkRating.rating,
+                        binding.travelmarkCategory.checkedRadioButtonId
+                    )
+                }
             }
         }
 
@@ -95,7 +100,9 @@ class TravelmarkView : AppCompatActivity() {
                 presenter.doCancel()
             }
             R.id.item_delete -> {
-                presenter.doDelete()
+                GlobalScope.launch(Dispatchers.IO) {
+                    presenter.doDelete()
+                }
             }
             android.R.id.home -> {
                 presenter.doHome()

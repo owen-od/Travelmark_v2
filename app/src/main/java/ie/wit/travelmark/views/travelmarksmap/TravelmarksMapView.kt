@@ -10,6 +10,9 @@ import ie.wit.travelmark.databinding.ActivityTravelmarkMapsBinding
 import ie.wit.travelmark.databinding.ContentTravelmarkMapsBinding
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
@@ -33,7 +36,9 @@ class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener 
 
         contentBinding.mapView.onCreate(savedInstanceState)
         contentBinding.mapView.getMapAsync {
-            presenter.doPopulateMap(it)
+            GlobalScope.launch(Dispatchers.Main) {
+                presenter.doPopulateMap(it)
+            }
         }
     }
 
@@ -45,7 +50,9 @@ class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener 
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        presenter.doMarkerSelected(marker)
+        GlobalScope.launch(Dispatchers.Main) {
+            presenter.doMarkerSelected(marker)
+        }
         return true
     }
 

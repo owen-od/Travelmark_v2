@@ -6,7 +6,6 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import ie.wit.travelmark.helpers.*
 import timber.log.Timber
-import timber.log.Timber.i
 import java.lang.reflect.Type
 import java.util.*
 
@@ -30,19 +29,19 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         }
     }
 
-    override fun findAll(): MutableList<TravelmarkModel> {
+    override suspend fun findAll(): MutableList<TravelmarkModel> {
         logAll()
         return travelmarks
     }
 
-    override fun create(travelmark: TravelmarkModel) {
+    override suspend fun create(travelmark: TravelmarkModel) {
         travelmark.id = generateRandomId()
         travelmarks.add(travelmark)
         serialize()
     }
 
 
-    override fun update(travelmark: TravelmarkModel) {
+    override suspend fun update(travelmark: TravelmarkModel) {
         var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmark.id }
         if (foundTravelmark != null) {
             foundTravelmark.title = travelmark.title
@@ -58,12 +57,12 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         }
     }
 
-    override fun findTravelmarkById(travelmarkId: Long): TravelmarkModel? {
+    override suspend fun findTravelmarkById(travelmarkId: Long): TravelmarkModel? {
         var foundTravelmark: TravelmarkModel? = travelmarks.find { t -> t.id == travelmarkId }
         return foundTravelmark
     }
 
-    override fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel> {
+    override suspend fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel> {
         var filteredlist: MutableList<TravelmarkModel>
         var travelmarks = findAll().toMutableList()
 
@@ -99,7 +98,7 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
         travelmarks = gsonBuilder.fromJson(jsonString, listType)
     }
 
-    override fun delete(travelmark: TravelmarkModel) {
+    override suspend fun delete(travelmark: TravelmarkModel) {
         travelmarks.remove(travelmark)
         serialize()
     }

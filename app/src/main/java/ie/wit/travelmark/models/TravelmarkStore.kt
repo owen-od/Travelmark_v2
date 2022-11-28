@@ -1,10 +1,10 @@
 package ie.wit.travelmark.models
 
 interface TravelmarkStore {
-    fun findAll(): List<TravelmarkModel>
-    fun create(travelmark: TravelmarkModel)
-    fun update(travelmark: TravelmarkModel)
-    fun delete(travelmark: TravelmarkModel)
-    fun findTravelmarkById(travelmarkId: Long): TravelmarkModel?
-    fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel>
+    suspend fun findAll(): List<TravelmarkModel>
+    suspend fun create(travelmark: TravelmarkModel)
+    suspend fun update(travelmark: TravelmarkModel)
+    suspend fun delete(travelmark: TravelmarkModel)
+    suspend fun findTravelmarkById(travelmarkId: Long): TravelmarkModel?
+    suspend fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel>
 }

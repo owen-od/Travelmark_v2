@@ -15,6 +15,9 @@ import ie.wit.travelmark.adapters.TravelmarkListener
 import ie.wit.travelmark.databinding.ActivityTravelmarkListBinding
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber.i
 
 class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
@@ -41,7 +44,9 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         binding.chipOptions.setOnCheckedChangeListener(object: ChipGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(chipGroup: ChipGroup, id: Int) {
                 var selectedChip = chipGroup.findViewById(id) as Chip
-                presenter.doChipChange(selectedChip.id)
+                GlobalScope.launch(Dispatchers.Main) {
+                    presenter.doChipChange(selectedChip.id)
+                }
             }
         })
     }
@@ -58,13 +63,17 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val checkedChip = binding.chipOptions.checkedChipId
-                presenter.doSearch(query, checkedChip)
+                GlobalScope.launch(Dispatchers.Main) {
+                    presenter.doSearch(query, checkedChip)
+                }
                 return false
             }
 
             override fun onQueryTextChange(msg: String): Boolean {
                 val checkedChip = binding.chipOptions.checkedChipId
-                presenter.doSearch(msg, checkedChip)
+                GlobalScope.launch(Dispatchers.Main) {
+                    presenter.doSearch(msg, checkedChip)
+                }
                 return false
             }
         })
@@ -84,15 +93,17 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
     }
 
     private fun loadTravelmarks() {
-        showTravelmarks(presenter.getTravelmarks())
+        GlobalScope.launch(Dispatchers.Main) {
+            showTravelmarks(presenter.getTravelmarks())
+        }
     }
 
-    fun showTravelmarks (travelmarks: List<TravelmarkModel>) {
+    private fun showTravelmarks (travelmarks: List<TravelmarkModel>) {
         binding.recyclerView.adapter = TravelmarkAdapter(travelmarks, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    fun filter(text: String, category: String) {
+    suspend fun filter(text: String, category: String) {
         val filteredList = presenter.doTextFilter(text, category)
         if (filteredList.isEmpty()) {
             Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
@@ -101,13 +112,14 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    fun filterCategory(category: String) {
+    suspend fun filterCategory(category: String) {
         val filteredList = presenter.doCategoryFilter(category)
         binding.recyclerView.adapter = TravelmarkAdapter(filteredList, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun onResume() {
+        loadTravelmarks()
         binding.recyclerView.adapter?.notifyDataSetChanged()
         i("recyclerView onResume")
         super.onResume()
