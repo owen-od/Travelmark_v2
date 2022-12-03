@@ -10,14 +10,14 @@ class MainApp : Application() {
 
     lateinit var travelmarks: TravelmarkStore
     // val users = UserMemStore()
-    lateinit var users: UserStore
+    // lateinit var users: UserStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Travelmark started")
         // travelmarks = TravelmarkJSONStore(applicationContext)
-        users = UserJSONStore(applicationContext)
+        // users = UserJSONStore(applicationContext)
         //travelmarks = TravelmarkMemStore()
         travelmarks = TravelmarkStoreRoom(applicationContext)
     }

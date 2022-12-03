@@ -2,6 +2,7 @@ package ie.wit.travelmark.views.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityLoginBinding
@@ -20,25 +21,16 @@ class LoginView : AppCompatActivity() {
         app = application as MainApp
         presenter = LoginPresenter(this)
 
+        binding.progressBar.visibility = View.GONE
+
         binding.login.setOnClickListener {
             var username = binding.username.text.toString()
-            if (username.length < 3) {
-                username = ""
-                binding.username.setError("Username must be 3 characters or more")
-            }
             var password = binding.password.text.toString()
-            if (password.length < 3) {
-                password = ""
-                binding.password.setError("Password must be 3 characters or more")
+            if (username == "" || password == "") {
+                showSnackBar(R.string.warning_enter_credentials.toString())
             }
-            if(presenter.doLogin(username, password)) {
-                Snackbar
-                    .make(it, R.string.login_success, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-                Snackbar
-                    .make(it, R.string.warning_incorrect_credentials, Snackbar.LENGTH_LONG)
-                    .show()
+            else {
+                presenter.doLogin(username,password)
             }
         }
 
@@ -47,4 +39,16 @@ class LoginView : AppCompatActivity() {
         }
     }
 
+    fun showSnackBar(message: CharSequence){
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
+            .show()
+    }
+
+    fun showProgress() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        binding.progressBar.visibility = View.GONE
+    }
 }

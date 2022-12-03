@@ -3,6 +3,7 @@ package ie.wit.travelmark.views.login
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.auth.FirebaseAuth
 import ie.wit.travelmark.views.register.RegisterView
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.views.travelmarklist.TravelmarkListView
@@ -18,14 +19,18 @@ class LoginPresenter(private val view: LoginView) {
         registerTravelmarkCallback()
         registerRegisterCallback()
     }
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    fun doLogin(username: String, password: String): Boolean {
-        return if (app.users.login(username, password)) {
-            val launcherIntent = Intent(view, TravelmarkListView::class.java)
-            travelmarkIntentLauncher.launch(launcherIntent)
-            true
-        } else {
-            false
+    fun doLogin(username: String, password: String) {
+        view.showProgress()
+        auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(view!!) { task ->
+            if (task.isSuccessful) {
+                val launcherIntent = Intent(view, TravelmarkListView::class.java)
+                travelmarkIntentLauncher.launch(launcherIntent)
+            } else {
+                view.showSnackBar("Login failed: ${task.exception?.message}")
+            }
+            view.hideProgress()
         }
     }
 
