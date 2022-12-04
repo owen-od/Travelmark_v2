@@ -3,10 +3,12 @@ package ie.wit.travelmark.views.travelmarklist
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.auth.FirebaseAuth
 import ie.wit.travelmark.R
 import ie.wit.travelmark.views.travelmarksmap.TravelmarksMapView
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
+import ie.wit.travelmark.views.login.LoginView
 import ie.wit.travelmark.views.travelmark.TravelmarkView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -17,11 +19,13 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
     var app: MainApp
     private lateinit var refreshIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var loginIntentLauncher : ActivityResultLauncher<Intent>
 
     init {
         app = view.application as MainApp
         registerRefreshCallback()
         registerMapCallback()
+        registerLoginCallback()
     }
 
     fun doAddTravelmark() {
@@ -96,6 +100,12 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
     
     suspend fun getTravelmarks() = app.travelmarks.findAll()
 
+    fun doLogout() {
+        FirebaseAuth.getInstance().signOut()
+        val launcherIntent = Intent(view, LoginView::class.java)
+        loginIntentLauncher.launch(launcherIntent)
+    }
+
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
@@ -109,5 +119,12 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         mapIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             {  }
+    }
+
+    private fun registerLoginCallback() {
+        loginIntentLauncher =
+            view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {  }
+
     }
 }

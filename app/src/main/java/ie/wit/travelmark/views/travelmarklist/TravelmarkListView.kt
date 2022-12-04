@@ -57,7 +57,7 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
                     true
                 }
                 R.id.item_logout -> {
-                    //toDo
+                    presenter.doLogout()
                     true
                 }
                 else -> false
