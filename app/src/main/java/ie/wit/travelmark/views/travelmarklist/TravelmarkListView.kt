@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -14,6 +16,7 @@ import ie.wit.travelmark.R
 import ie.wit.travelmark.adapters.TravelmarkAdapter
 import ie.wit.travelmark.adapters.TravelmarkListener
 import ie.wit.travelmark.databinding.ActivityTravelmarkListBinding
+import ie.wit.travelmark.helpers.SwipeToDeleteCallback
 import ie.wit.travelmark.main.MainApp
 import ie.wit.travelmark.models.TravelmarkModel
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +30,7 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
     lateinit var presenter: TravelmarkListPresenter
     lateinit var bottomNav : BottomNavigationView
     private lateinit var binding: ActivityTravelmarkListBinding
+    private lateinit var travelmarkList: List<TravelmarkModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,9 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
+        GlobalScope.launch(Dispatchers.Main) {
+            travelmarkList = presenter.getTravelmarks()
+        }
         loadTravelmarks()
 
         bottomNav = findViewById(R.id.bottomNav) as BottomNavigationView
@@ -78,6 +85,20 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
                 }
             }
         })
+
+        val swipeDeleteHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = binding.recyclerView.adapter as TravelmarkAdapter
+                var travelmark = travelmarkList[viewHolder.adapterPosition]
+                adapter.removeAt(viewHolder.adapterPosition)
+                i("Deleting travelmark: $travelmark")
+                GlobalScope.launch(Dispatchers.IO) {
+                    presenter.doDelete(travelmark)
+                }
+            }
+        }
+        val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
+        itemTouchDeleteHelper.attachToRecyclerView(binding.recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -115,13 +136,16 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
 
     private fun loadTravelmarks() {
         GlobalScope.launch(Dispatchers.Main) {
-            showTravelmarks(presenter.getTravelmarks())
+            showTravelmarks(presenter.getTravelmarks() as MutableList<TravelmarkModel>)
         }
     }
 
-    fun showTravelmarks (travelmarks: List<TravelmarkModel>) {
+    fun showTravelmarks (travelmarks: MutableList<TravelmarkModel>) {
         binding.recyclerView.adapter = TravelmarkAdapter(travelmarks, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
+
+        //update travelmark list here to avoid bug in swipe to delete when using filtered data
+        travelmarkList = travelmarks
     }
 
     override fun onResume() {

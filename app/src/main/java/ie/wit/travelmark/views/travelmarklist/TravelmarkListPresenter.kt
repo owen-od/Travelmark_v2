@@ -106,6 +106,10 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
         loginIntentLauncher.launch(launcherIntent)
     }
 
+    suspend fun doDelete(travelmark: TravelmarkModel) {
+        app.travelmarks.delete(travelmark)
+    }
+
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())

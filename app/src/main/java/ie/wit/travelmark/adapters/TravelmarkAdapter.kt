@@ -11,7 +11,7 @@ interface TravelmarkListener {
     fun onTravelmarkClick(travelmark: TravelmarkModel)
 }
 
-class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkModel>,
+class TravelmarkAdapter constructor(private var travelmarks: MutableList<TravelmarkModel>,
                                     private val listener: TravelmarkListener) :
             RecyclerView.Adapter<TravelmarkAdapter.MainHolder>() {
 
@@ -28,6 +28,11 @@ class TravelmarkAdapter constructor(private var travelmarks: List<TravelmarkMode
     }
 
     override fun getItemCount(): Int = travelmarks.size
+
+    fun removeAt(position: Int) {
+        travelmarks.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     class MainHolder(private val binding : CardTravelmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
