@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import ie.wit.travelmark.R
@@ -23,6 +24,7 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
 
     lateinit var app: MainApp
     lateinit var presenter: TravelmarkListPresenter
+    lateinit var bottomNav : BottomNavigationView
     private lateinit var binding: ActivityTravelmarkListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,29 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         loadTravelmarks()
+
+        bottomNav = findViewById(R.id.bottomNav) as BottomNavigationView
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_home -> {
+                    true
+                }
+                R.id.item_add -> {
+                    presenter.doAddTravelmark()
+                    i("we got here")
+                    true
+                }
+                R.id.item_map -> {
+                    presenter.doShowTravelmarksMap()
+                    true
+                }
+                R.id.item_logout -> {
+                    //toDo
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.chipOptions.check(R.id.chip_option_all)
         binding.chipOptions.setOnCheckedChangeListener(object: ChipGroup.OnCheckedChangeListener {
@@ -79,14 +104,6 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_add -> { presenter.doAddTravelmark() }
-            R.id.item_map -> { presenter.doShowTravelmarksMap() }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onTravelmarkClick(travelmark: TravelmarkModel) {
         presenter.doEditTravelmark(travelmark)
     }
@@ -106,6 +123,7 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         loadTravelmarks()
         binding.recyclerView.adapter?.notifyDataSetChanged()
         i("recyclerView onResume")
+        bottomNav.setSelectedItemId(R.id.item_home)
         super.onResume()
     }
 }

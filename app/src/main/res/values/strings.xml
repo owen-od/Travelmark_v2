@@ -5,6 +5,9 @@
     <string name="hint_travelmarkDescription">Description</string>
     <string name="hint_travelmarkLocation">Location</string>
     <string name="menu_addTravelmark">Add</string>
+    <string name="menu_map">Map</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_logout">Logout</string>
     <string name="menu_cancelTravelmark">Cancel</string>
     <string name="menu_searchTravelmark">Search</string>
     <string name="menu_saveTravelmark"> Save Travelmark </string>
