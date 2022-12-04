@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -98,23 +97,8 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         }
     }
 
-    private fun showTravelmarks (travelmarks: List<TravelmarkModel>) {
+    fun showTravelmarks (travelmarks: List<TravelmarkModel>) {
         binding.recyclerView.adapter = TravelmarkAdapter(travelmarks, this)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    suspend fun filter(text: String, category: String) {
-        val filteredList = presenter.doTextFilter(text, category)
-        if (filteredList.isEmpty()) {
-            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
-        }
-        binding.recyclerView.adapter = TravelmarkAdapter(filteredList, this)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    suspend fun filterCategory(category: String) {
-        val filteredList = presenter.doCategoryFilter(category)
-        binding.recyclerView.adapter = TravelmarkAdapter(filteredList, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 

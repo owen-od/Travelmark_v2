@@ -11,7 +11,6 @@ import ie.wit.travelmark.views.travelmark.TravelmarkView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class TravelmarkListPresenter (private val view: TravelmarkListView) {
 
@@ -48,47 +47,16 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
             R.id.chip_option_eat -> "Food to eat"
             else -> "All"
         }
-        view.filter(query, chipCategory)
-        //i(query)
-    }
-
-    suspend fun doTextFilter(text: String, category: String): MutableList<TravelmarkModel> {
         val filteredlist: MutableList<TravelmarkModel> = mutableListOf()
-        val travelmarks = app.travelmarks.findTravelmarksByCategory(category)
+        val travelmarks = app.travelmarks.findTravelmarksByCategory(chipCategory)
 
         for (item in travelmarks) {
-            if (item.location.toLowerCase().contains(text.toLowerCase())) {
+            if (item.location.toLowerCase().contains(query.toLowerCase())) {
                 filteredlist.add(item)
                 // i("item added to list")
             }
         }
-        return filteredlist
-    }
-
-    suspend fun doCategoryFilter(category: String): MutableList<TravelmarkModel> {
-        var filteredlist: MutableList<TravelmarkModel>
-        var travelmarks = app.travelmarks.findAll().toMutableList()
-
-        when (category) {
-            "all" -> {
-                filteredlist = travelmarks
-            }
-            "Thing to do" -> {
-                filteredlist = travelmarks.filter { it.category == "Thing to do" } as MutableList<TravelmarkModel>
-            }
-
-            "Sight to see" -> {
-                filteredlist = travelmarks.filter { it.category == "Sight to see" } as MutableList<TravelmarkModel>
-            }
-
-            "Food to eat" -> {
-                filteredlist = travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
-            }
-            else -> {
-                filteredlist = travelmarks
-            }
-        }
-        return filteredlist
+        view.showTravelmarks(filteredlist)
     }
 
     suspend fun doChipChange(selectedChip: Int) {
@@ -98,10 +66,34 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
             R.id.chip_option_eat -> "Food to eat"
             else -> "All"
         }
-        Timber.i(chipCategory)
-        view.filterCategory(chipCategory)
-    }
+        var filteredlist: MutableList<TravelmarkModel>
+        var travelmarks = app.travelmarks.findAll().toMutableList()
 
+        when (chipCategory) {
+            "All" -> {
+                filteredlist = travelmarks
+            }
+            "Thing to do" -> {
+                filteredlist =
+                    travelmarks.filter { it.category == "Thing to do" } as MutableList<TravelmarkModel>
+            }
+
+            "Sight to see" -> {
+                filteredlist =
+                    travelmarks.filter { it.category == "Sight to see" } as MutableList<TravelmarkModel>
+            }
+
+            "Food to eat" -> {
+                filteredlist =
+                    travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
+            }
+            else -> {
+                filteredlist = travelmarks
+            }
+        }
+        view.showTravelmarks(filteredlist)
+    }
+    
     suspend fun getTravelmarks() = app.travelmarks.findAll()
 
     private fun registerRefreshCallback() {
