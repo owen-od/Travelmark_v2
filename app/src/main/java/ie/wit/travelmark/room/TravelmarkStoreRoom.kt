@@ -25,6 +25,9 @@ class TravelmarkStoreRoom(val context: Context) : TravelmarkStore {
     }
 
     override suspend fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel> {
+        if (travelmarkCategory == "All") {
+            return dao.findAll()
+        }
         return dao.findByCategory(travelmarkCategory)
     }
 
