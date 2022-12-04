@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.firebase.auth.FirebaseAuth
 import ie.wit.travelmark.R
 import ie.wit.travelmark.adapters.TravelmarkAdapter
 import ie.wit.travelmark.adapters.TravelmarkListener
@@ -32,6 +33,10 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         binding = ActivityTravelmarkListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.title = title
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            binding.toolbar.title = "User: ${user.email}"
+        }
         setSupportActionBar(binding.toolbar)
 
         presenter = TravelmarkListPresenter(this)
