@@ -69,7 +69,9 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
                     true
                 }
                 R.id.item_logout -> {
-                    presenter.doLogout()
+                    GlobalScope.launch(Dispatchers.IO) {
+                        presenter.doLogout()
+                    }
                     true
                 }
                 else -> false

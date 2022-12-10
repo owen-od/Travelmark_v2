@@ -100,8 +100,9 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
     
     suspend fun getTravelmarks() = app.travelmarks.findAll()
 
-    fun doLogout() {
+    suspend fun doLogout() {
         FirebaseAuth.getInstance().signOut()
+        app.travelmarks.clear()
         val launcherIntent = Intent(view, LoginView::class.java)
         loginIntentLauncher.launch(launcherIntent)
     }

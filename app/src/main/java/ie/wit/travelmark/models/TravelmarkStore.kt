@@ -7,4 +7,5 @@ interface TravelmarkStore {
     suspend fun delete(travelmark: TravelmarkModel)
     suspend fun findTravelmarkById(travelmarkId: Long): TravelmarkModel?
     suspend fun findTravelmarksByCategory(travelmarkCategory: String): List<TravelmarkModel>
+    suspend fun clear()
 }

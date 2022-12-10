@@ -43,6 +43,6 @@ class TravelmarkStoreRoom(val context: Context) : TravelmarkStore {
         dao.deleteTravelmark(travelmark)
     }
 
-    fun clear() {
+    override suspend fun clear() {
     }
 }

@@ -138,7 +138,7 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            travelmark.image = result.data!!.data!!
+                            travelmark.image = result.data!!.data!!.toString()
                             view.updateImage(travelmark.image)
                             Picasso.get()
                                 .load(travelmark.image)

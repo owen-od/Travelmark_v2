@@ -77,4 +77,8 @@ class TravelmarkMemStore: TravelmarkStore {
         travelmarks.forEach{ i("${it}") }
     }
 
+    override suspend fun clear(){
+        travelmarks.clear()
+    }
+
 }

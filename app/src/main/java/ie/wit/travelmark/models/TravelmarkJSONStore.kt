@@ -106,6 +106,10 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
     private fun logAll() {
         travelmarks.forEach { Timber.i("$it") }
     }
+
+    override suspend fun clear(){
+        travelmarks.clear()
+    }
 }
 
 class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {

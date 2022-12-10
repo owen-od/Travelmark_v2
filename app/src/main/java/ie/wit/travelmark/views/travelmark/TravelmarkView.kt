@@ -1,6 +1,5 @@
 package ie.wit.travelmark.views.travelmark
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -122,10 +121,10 @@ class TravelmarkView : AppCompatActivity() {
             else -> R.id.option_see
         }
         binding.travelmarkCategory.check(categoryId)
+        if (travelmark.image != "") {
         Picasso.get()
             .load(travelmark.image)
             .into(binding.travelmarkImage)
-        if (binding.travelmarkImage != Uri.EMPTY) {
             binding.chooseImage.setText(R.string.button_changeImage)
         }
     }
@@ -135,14 +134,12 @@ class TravelmarkView : AppCompatActivity() {
         binding.addPlacemarkHeader.setText("Update Travelmark")
     }
 
-    fun updateImage(image: Uri){
+    fun updateImage(image: String){
         i("Image updated")
         Picasso.get()
             .load(image)
             .into(binding.travelmarkImage)
-        if (binding.travelmarkImage != Uri.EMPTY) {
-            binding.chooseImage.setText(R.string.button_changeImage)
+        binding.chooseImage.setText(R.string.button_changeImage)
         }
-    }
 
-}
+    }

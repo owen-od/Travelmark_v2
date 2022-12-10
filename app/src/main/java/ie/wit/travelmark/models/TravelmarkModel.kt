@@ -1,6 +1,5 @@
 package ie.wit.travelmark.models
 
-import android.net.Uri
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,7 +8,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity
 data class TravelmarkModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
-                           var image: Uri = Uri.EMPTY,
+                           var fbId: String = "",
+                           var image: String = "",
                            var location: String = "",
                            var title: String = "",
                            var category: String = "N/A",
