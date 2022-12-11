@@ -1,10 +1,12 @@
 package ie.wit.travelmark.views.travelmarklist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber.i
+
 
 class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
 
@@ -105,6 +108,32 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
+        val item = menu.findItem(R.id.switchTheme) as MenuItem
+        item.setActionView(R.layout.switch_layout)
+        val switchTheme: SwitchCompat =  item.actionView!!.findViewById(R.id.switchForActionBar)
+        switchTheme.isChecked = false
+
+        val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
+        switchTheme.setChecked(sharedPreferences.getBoolean("value", true))
+
+        switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                val editor = getSharedPreferences("save", MODE_PRIVATE).edit()
+                editor.putBoolean("value", true)
+                editor.apply()
+                switchTheme.setChecked(true)
+            }
+            else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                val editor = getSharedPreferences("save", MODE_PRIVATE).edit()
+                editor.putBoolean("value", false)
+                editor.apply()
+                switchTheme.setChecked(false)
+            }
+        }
+
         // get menu item
         val searchItem: MenuItem = menu.findItem(R.id.search)
         // getting search view of menu item and set query hint

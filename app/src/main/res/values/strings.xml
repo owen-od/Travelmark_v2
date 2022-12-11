@@ -44,4 +44,5 @@
     <string name="chip_option_do">To do</string>
     <string name="chip_option_see">To see</string>
     <string name="chip_option_eat">To eat</string>
+    <string name="switchLayout">Switch</string>
 </resources>

@@ -8,4 +8,11 @@
         android:title="@string/menu_searchTravelmark"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/switchTheme"
+        android:title="@string/switchLayout"
+        android:actionLayout="@layout/switch_layout"
+        app:showAsAction="always" />
+
 </menu>
