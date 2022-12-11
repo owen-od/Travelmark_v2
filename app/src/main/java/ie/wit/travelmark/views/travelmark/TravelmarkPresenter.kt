@@ -126,7 +126,11 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
     fun doSetCurrentLocation() {
         Timber.i("setting location from doSetLocation")
         locationService.lastLocation.addOnSuccessListener {
-            locationUpdate(it.latitude, it.longitude)
+            if (it != null) {
+                locationUpdate(it.latitude, it.longitude)
+            } else {
+                locationUpdate(-8.69163, 115.15783)
+            }
         }
     }
 
