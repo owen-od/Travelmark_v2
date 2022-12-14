@@ -36,6 +36,9 @@ class TravelmarkFireStore(val context: android.content.Context) : TravelmarkStor
             "Food to eat" -> {
                 filteredlist = travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
             }
+            "Favourite" -> {
+                filteredlist = travelmarks.filter { it.favourite } as MutableList<TravelmarkModel>
+            }
             else -> {
                 filteredlist = travelmarks
             }
@@ -64,6 +67,7 @@ class TravelmarkFireStore(val context: android.content.Context) : TravelmarkStor
             foundTravelmark.lng = travelmark.lng
             foundTravelmark.zoom = travelmark.zoom
             foundTravelmark.rating = travelmark.rating
+            foundTravelmark.favourite = travelmark.favourite
         }
 
         db.child("users").child(userId).child("travelmarks").child(travelmark.fbId).setValue(travelmark)

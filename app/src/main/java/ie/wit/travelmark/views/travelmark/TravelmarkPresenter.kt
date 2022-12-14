@@ -55,11 +55,12 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
         registerMapCallback()
     }
 
-    suspend fun doAddorUpdate(location: String, title: String, description: String, rating: Float, category: Int  ) {
+    suspend fun doAddorUpdate(location: String, title: String, description: String, rating: Float, category: Int, favourite: Boolean  ) {
         travelmark.location = location
         travelmark.title = title
         travelmark.description = description
         travelmark.rating = rating
+        travelmark.favourite = favourite
         travelmark.category = when (category) {
             R.id.option_see -> "Sight to see"
             R.id.option_do -> "Thing to do"
@@ -89,11 +90,12 @@ class TravelmarkPresenter (private val view: TravelmarkView) {
         mapIntentLauncher.launch(launcherIntent)
     }
 
-    fun cacheTravelmark (location: String, title: String, description: String, rating: Float, category: Int) {
+    fun cacheTravelmark (location: String, title: String, description: String, rating: Float, category: Int, favourite: Boolean) {
         travelmark.location = location
         travelmark.title = title
         travelmark.description = description
         travelmark.rating = rating
+        travelmark.favourite = favourite
         travelmark.category = when (category) {
             R.id.option_see -> "Sight to see"
             R.id.option_do -> "Thing to do"

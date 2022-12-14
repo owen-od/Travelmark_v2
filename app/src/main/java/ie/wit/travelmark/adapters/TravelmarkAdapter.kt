@@ -1,6 +1,7 @@
 package ie.wit.travelmark.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -46,6 +47,11 @@ class TravelmarkAdapter constructor(private var travelmarks: MutableList<Travelm
             }
             binding.travelmarkCategory.text = travelmark.category
             binding.cardTravelmarkRating.rating = travelmark.rating
+            if (travelmark.favourite) {
+                binding.imagefavourite.setVisibility(View.VISIBLE)
+            } else {
+                binding.imagefavourite.setVisibility(View.GONE)
+            }
             binding.root.setOnClickListener { listener.onTravelmarkClick(travelmark) }
         }
     }

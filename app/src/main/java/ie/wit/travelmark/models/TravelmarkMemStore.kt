@@ -34,6 +34,7 @@ class TravelmarkMemStore: TravelmarkStore {
             foundTravelmark.lng = travelmark.lng
             foundTravelmark.zoom = travelmark.zoom
             foundTravelmark.rating = travelmark.rating
+            foundTravelmark.favourite = travelmark.favourite
             logAll()
         }
     }
@@ -61,6 +62,9 @@ class TravelmarkMemStore: TravelmarkStore {
 
             "Food to eat" -> {
                 filteredlist = travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
+            }
+            "Favourite" -> {
+                filteredlist = travelmarks.filter { it.favourite } as MutableList<TravelmarkModel>
             }
             else -> {
                 filteredlist = travelmarks

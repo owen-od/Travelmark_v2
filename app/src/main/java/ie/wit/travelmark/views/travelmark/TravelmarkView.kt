@@ -52,7 +52,8 @@ class TravelmarkView : AppCompatActivity() {
                         binding.travelmarkTitle.text.toString(),
                         binding.travelmarkDescription.text.toString(),
                         binding.travelmarkRating.rating,
-                        binding.travelmarkCategory.checkedRadioButtonId
+                        binding.travelmarkCategory.checkedRadioButtonId,
+                        binding.checkboxFavourite.isChecked
                     )
                 }
             }
@@ -64,7 +65,8 @@ class TravelmarkView : AppCompatActivity() {
                 binding.travelmarkTitle.text.toString(),
                 binding.travelmarkDescription.text.toString(),
                 binding.travelmarkRating.rating,
-                binding.travelmarkCategory.checkedRadioButtonId
+                binding.travelmarkCategory.checkedRadioButtonId,
+                binding.checkboxFavourite.isChecked
             )
             presenter.doSelectImage()
         }
@@ -75,7 +77,8 @@ class TravelmarkView : AppCompatActivity() {
                 binding.travelmarkTitle.text.toString(),
                 binding.travelmarkDescription.text.toString(),
                 binding.travelmarkRating.rating,
-                binding.travelmarkCategory.checkedRadioButtonId
+                binding.travelmarkCategory.checkedRadioButtonId,
+                binding.checkboxFavourite.isChecked
             )
             presenter.doSetLocation()
         }
@@ -115,6 +118,7 @@ class TravelmarkView : AppCompatActivity() {
         binding.travelmarkDescription.setText(travelmark.description)
         binding.travelmarkLocation.setText(travelmark.location)
         binding.travelmarkRating.rating = travelmark.rating
+        binding.checkboxFavourite.setChecked(travelmark.favourite)
         var categoryId = when(travelmark.category) {
             "Thing to do" -> R.id.option_do
             "Food to eat" -> R.id.option_eat

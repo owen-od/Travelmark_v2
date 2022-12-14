@@ -68,6 +68,7 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
             R.id.chip_option_see -> "Sight to see"
             R.id.chip_option_do -> "Thing to do"
             R.id.chip_option_eat -> "Food to eat"
+            R.id.chip_option_fav -> "Favourite"
             else -> "All"
         }
         var filteredlist: MutableList<TravelmarkModel>
@@ -90,6 +91,10 @@ class TravelmarkListPresenter (private val view: TravelmarkListView) {
             "Food to eat" -> {
                 filteredlist =
                     travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
+            }
+            "Favourite" -> {
+                filteredlist =
+                    travelmarks.filter { it.favourite } as MutableList<TravelmarkModel>
             }
             else -> {
                 filteredlist = travelmarks

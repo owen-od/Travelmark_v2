@@ -53,6 +53,7 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
             foundTravelmark.lng = travelmark.lng
             foundTravelmark.zoom = travelmark.zoom
             foundTravelmark.rating = travelmark.rating
+            foundTravelmark.favourite = travelmark.favourite
             serialize()
         }
     }
@@ -80,6 +81,9 @@ class TravelmarkJSONStore(private val context: Context) : TravelmarkStore {
 
             "Food to eat" -> {
                 filteredlist = travelmarks.filter { it.category == "Food to eat" } as MutableList<TravelmarkModel>
+            }
+            "Favourite" -> {
+                filteredlist = travelmarks.filter { it.favourite } as MutableList<TravelmarkModel>
             }
             else -> {
                 filteredlist = travelmarks

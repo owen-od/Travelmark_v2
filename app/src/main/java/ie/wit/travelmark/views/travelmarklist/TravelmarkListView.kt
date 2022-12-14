@@ -64,7 +64,6 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
                 }
                 R.id.item_add -> {
                     presenter.doAddTravelmark()
-                    i("we got here")
                     true
                 }
                 R.id.item_map -> {
@@ -184,6 +183,7 @@ class TravelmarkListView : AppCompatActivity(), TravelmarkListener {
         binding.recyclerView.adapter?.notifyDataSetChanged()
         i("recyclerView onResume")
         bottomNav.setSelectedItemId(R.id.item_home)
+        binding.chipOptions.check(R.id.chip_option_all)
         super.onResume()
     }
 }
