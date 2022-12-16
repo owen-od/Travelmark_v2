@@ -46,7 +46,9 @@ class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener 
         contentBinding.currentTitle.text = travelmark?.title
         contentBinding.currentDescription.text = travelmark?.description
         contentBinding.currentCategory.text = travelmark?.category
-        Picasso.get().load(travelmark?.image).resize(250,250).into(contentBinding.currentImage)
+        if (travelmark.image != "") {
+            Picasso.get().load(travelmark?.image).resize(250, 250).into(contentBinding.currentImage)
+        }
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {

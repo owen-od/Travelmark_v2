@@ -2,6 +2,8 @@ package ie.wit.travelmark.models
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TravelmarkFireStore(val context: android.content.Context) : TravelmarkStore {
     val travelmarks = ArrayList<TravelmarkModel>()
@@ -10,6 +12,10 @@ class TravelmarkFireStore(val context: android.content.Context) : TravelmarkStor
 
     override suspend fun findAll(): List<TravelmarkModel> {
         return travelmarks
+    }
+
+    fun generateRandomId(): Long {
+        return Random().nextLong()
     }
 
     override suspend fun findTravelmarkById(id: Long): TravelmarkModel? {
@@ -50,6 +56,7 @@ class TravelmarkFireStore(val context: android.content.Context) : TravelmarkStor
         val key = db.child("users").child(userId).child("travelmarks").push().key
         key?.let {
             travelmark.fbId = key
+            travelmark.id = generateRandomId() //note that this is also needed as used for marker on map of all placemarks
             travelmarks.add(travelmark)
             db.child("users").child(userId).child("travelmarks").child(key).setValue(travelmark)
         }
