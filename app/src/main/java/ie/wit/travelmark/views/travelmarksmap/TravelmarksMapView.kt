@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.squareup.picasso.Picasso
@@ -94,6 +95,10 @@ class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener 
         contentBinding.currentCategory.text = travelmark?.category
         if (travelmark.image != "") {
             Picasso.get().load(travelmark?.image).resize(250, 250).into(contentBinding.currentImage)
+        }
+        contentBinding.mapView.getMapAsync {
+            val loc = LatLng(travelmark.lat, travelmark.lng)
+            it.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 10f))
         }
     }
 
