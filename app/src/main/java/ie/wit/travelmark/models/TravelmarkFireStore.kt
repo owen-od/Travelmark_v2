@@ -93,6 +93,15 @@ class TravelmarkFireStore(val context: android.content.Context) : TravelmarkStor
 
     override suspend fun delete(travelmark: TravelmarkModel) {
         db.child("users").child(userId).child("travelmarks").child(travelmark.fbId).removeValue()
+        if(travelmark.image.length > 0) {
+            var storage = FirebaseStorage.getInstance().getReferenceFromUrl(travelmark.image)
+            storage.delete().addOnSuccessListener {
+                println("image deleted")
+            }.addOnFailureListener {
+                println("image not deleted")
+                println(it.message)
+            }
+        }
         travelmarks.remove(travelmark)
     }
 
