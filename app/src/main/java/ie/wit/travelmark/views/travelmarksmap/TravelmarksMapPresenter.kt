@@ -28,6 +28,10 @@ class TravelmarksMapPresenter (val view: TravelmarksMapView) {
             map.addMarker(options)?.tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
+        val lastTravelmark = app.travelmarks.findAll().lastOrNull()
+        if (lastTravelmark != null) {
+            view.showTravelmark(lastTravelmark)
+        }
     }
 
     fun doUpdateMapType(map: GoogleMap, type: String) {
