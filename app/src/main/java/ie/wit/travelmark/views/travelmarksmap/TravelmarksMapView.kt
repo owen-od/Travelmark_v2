@@ -2,10 +2,15 @@ package ie.wit.travelmark.views.travelmarksmap
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.squareup.picasso.Picasso
+import ie.wit.travelmark.R
 import ie.wit.travelmark.databinding.ActivityTravelmarkMapsBinding
 import ie.wit.travelmark.databinding.ContentTravelmarkMapsBinding
 import ie.wit.travelmark.main.MainApp
@@ -40,6 +45,47 @@ class TravelmarksMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener 
                 presenter.doPopulateMap(it)
             }
         }
+
+        val spinner: Spinner = findViewById(R.id.map_spinner)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.maps_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                if (selectedItem == "Satellite") {
+                    contentBinding.mapView.getMapAsync {
+                        GlobalScope.launch(Dispatchers.Main) {
+                            presenter.doUpdateMapType(it, "Satellite")
+                        }
+                    }
+                }
+                if (selectedItem == "Normal") {
+                    contentBinding.mapView.getMapAsync {
+                        GlobalScope.launch(Dispatchers.Main) {
+                            presenter.doUpdateMapType(it, "Normal")
+                        }
+                    }
+                }
+                if (selectedItem == "Terrain") {
+                    contentBinding.mapView.getMapAsync {
+                        GlobalScope.launch(Dispatchers.Main) {
+                            presenter.doUpdateMapType(it, "Terrain")
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     fun showTravelmark(travelmark: TravelmarkModel) {

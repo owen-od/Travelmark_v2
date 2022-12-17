@@ -19,6 +19,7 @@ class TravelmarksMapPresenter (val view: TravelmarksMapView) {
     suspend fun doPopulateMap(map: GoogleMap) {
         map.setOnMarkerClickListener(view)
         map.uiSettings.setZoomControlsEnabled(true)
+        //map.mapType = GoogleMap.MAP_TYPE_HYBRID
         // var customMarker = BitmapDescriptorFactory.fromResource(R.drawable....)
         var colourMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
         app.travelmarks.findAll().forEach {
@@ -26,6 +27,23 @@ class TravelmarksMapPresenter (val view: TravelmarksMapView) {
             val options = MarkerOptions().title(it.title).position(loc).icon(colourMarker)
             map.addMarker(options)?.tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+        }
+    }
+
+    fun doUpdateMapType(map: GoogleMap, type: String) {
+        when (type) {
+            "Satellite" -> {
+                map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            }
+            "Normal" -> {
+                map.mapType = GoogleMap.MAP_TYPE_NORMAL
+            }
+            "Terrain" -> {
+                map.mapType = GoogleMap.MAP_TYPE_HYBRID
+            }
+            else -> {
+                map.mapType = GoogleMap.MAP_TYPE_NORMAL
+            }
         }
     }
 
