@@ -50,46 +50,63 @@
                     android:text="@string/add_travelmark_header"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                <EditText
-                    android:id="@+id/travelmarkLocation"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="wrap_content"
                     android:autofillHints=""
                     android:hint="@string/hint_travelmarkLocation"
                     android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
                     android:padding="8dp"
                     android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    android:textSize="14sp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/travelmarkLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:maxLength="20"
+                        android:maxLines="1"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/travelmarkTitle"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="wrap_content"
                     android:autofillHints=""
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
                     android:hint="@string/hint_travelmarkTitle"
                     android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    android:textSize="14sp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/travelmarkTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:maxLength="20"
+                        android:maxLines="1"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/travelmarkDescription"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="wrap_content"
                     android:hint="@string/hint_travelmarkDescription"
                     android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="30"
                     android:padding="8dp"
                     android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    android:textSize="14sp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/travelmarkDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:maxLength="30" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
