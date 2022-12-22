@@ -7,7 +7,7 @@ Name: Owen O'Donnell
 An android application created in Android studio and written in Kotlin. The application was developed for assignment 2 of the mobile application development module in the HDip in Computer Science in SETU. The application allows users to add “travelmarks” in three pre-defined categories: things to do; sights to see; and foods to eat. Users must select a title, location and category for each travelmark and may additionally add a description, image, location and rating.
 Users can also select favourites and then filter and/or search within these categories and their favourite travelmarks.
 
-The purpose of the application is to allow users to record their travels to quickly find and share recommendations with others, or research upcoming trips and save travelmarks that they would like to visit on upcoming trips. 
+The purpose of the application is to allow users to record their travels to quickly find and share recommendations with others, or research upcoming trips and save travelmarks that they would like to visit on those trips. 
 
 The Model-view-presenter (MVP) pattern is used throughout and the application includes the below features:
 
@@ -38,7 +38,7 @@ The Model-view-presenter (MVP) pattern is used throughout and the application in
 A custom splash screen containing the app branding is displayed for 3 seconds when the application is launched.
 Users may then log in or create an account.
 
->Splash Screen and login register (in day mode)
+>Splash Screen and login + register (in day mode)
 
 ![Splash screen](/app/src/images/splash_day.PNG)
 
@@ -52,7 +52,7 @@ If night mode is activated these will be shown in night mode as the user prefere
 
 ### List travelmarks
 
-All travelmarks are displayed back to the user in a recycler view on the app home page. Each travelmark is clickable so the user can read and edit its details. Travelmarks can deleted by swiping left or from within edit mode.
+All travelmarks are displayed back to the user in a recycler view on the app home page. Each travelmark is clickable so the user can read and edit it's details. Travelmarks can deleted by swiping left or from within edit mode.
 
 >List all travelmarks
 
