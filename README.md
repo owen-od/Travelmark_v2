@@ -130,4 +130,4 @@ In addition to the official documentation and lecture materials, the below resou
 
 ## Project demo
 
-A video demo of the project is available on Youtube at the following url [ToDo]
+A video demo of the project is available on Youtube at the following url [https://youtu.be/WqQB7Pu5xAA]
